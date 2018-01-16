@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+
+<!-- BEGIN HEAD -->
+
+<head>
+  {% include 'header.html' %}
+</head>
+
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+
+<body class="page-header-fixed">
+
+	<!-- BEGIN HEADER -->
+
+{% include 'navi.html' %}
+
+	<!-- END HEADER -->
+
+	<!-- BEGIN CONTAINER -->
+
+	<div class="page-container row-fluid">
+
+		<!-- BEGIN SIDEBAR -->
+
+		{% include 'page_sidebar.html' %}
+
+		<!-- END SIDEBAR -->
+
+		<!-- BEGIN PAGE -->
+
+		{% include 'new_project_page_content.html' %}
+
+		<!-- END PAGE -->
+
+	</div>
+
+	<!-- END CONTAINER -->
+
+	<!-- BEGIN FOOTER -->
+
+	{% include 'footer.html' %}
+
+	<!-- END FOOTER -->
+
+	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+
+	<!-- BEGIN CORE PLUGINS -->
+
+	{% include 'table_js.html' %}
+
+</body>
+
+<!-- END BODY -->
+
+</html>

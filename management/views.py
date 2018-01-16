@@ -35,3 +35,14 @@ def index(request):
                    'rrt_intent_count':rrt_intent_count,'rrt_audio_count':rrt_audio_count,'rrt_testsuit_count':rrt_testsuit_count}
 
     return render(request, 'management/index.html',context)
+
+
+def new_project(request):
+    """
+        Show all test case
+        Show status of testcase
+       """
+
+    context={'rrt_project_count': 'new project'}
+
+    return render(request, 'management/new_project.html',context)

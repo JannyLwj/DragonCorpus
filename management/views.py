@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from audioop import reverse
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
+
 from management import models
-from management.PageInfo import PageInfo
+from management.Forms import New_Project_Form
+
 
 class JSONResponse(HttpResponse):
     """
@@ -36,13 +43,30 @@ def index(request):
 
     return render(request, 'management/index.html',context)
 
+@csrf_exempt
+def project_overview(request):
+        """
+            Show all test case
+            Show status of testcase
+           """
+
+        context={'project_name': 'RRT_EcarX'}
+
+        return render(request, 'management/project_overview.html',context)
+
 
 def new_project(request):
-    """
-        Show all test case
-        Show status of testcase
-       """
+    if request.method == 'GET':
+        """
+            Show all test case
+            Show status of testcase
+           """
+        context={'rrt_project_count': 'new project createe'}
 
-    context={'rrt_project_count': 'new project'}
+        return render(request, 'management/new_project.html',context)
 
-    return render(request, 'management/new_project.html',context)
+    elif request.method == 'POST':
+        form = New_Project_Form(request.POST)
+        if form.is_valid():
+            print "ss"
+        return HttpResponseRedirect(reverse('management:project_overview'))

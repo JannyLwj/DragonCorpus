@@ -10,7 +10,7 @@ class rrt_project(models.Model):
     project_description=models.TextField('project_description')
     create_time = models.DateTimeField('create_time', default=timezone.now)
     modify_time = models.DateTimeField('modify_time', default=timezone.now)
-    creater= models.CharField('creater', max_length=255)
+    creater= models.CharField('creater', max_length=255,default='admin')
     def __str__(self):
         return self.project_name
 

@@ -34,91 +34,7 @@
 
 						<!-- BEGIN STYLE CUSTOMIZER -->
 
-						<div class="color-panel hidden-phone">
-
-							<div class="color-mode-icons icon-color"></div>
-
-							<div class="color-mode-icons icon-color-close"></div>
-
-							<div class="color-mode">
-
-								<p>THEME COLOR</p>
-
-								<ul class="inline">
-
-									<li class="color-black current color-default" data-style="default"></li>
-
-									<li class="color-blue" data-style="blue"></li>
-
-									<li class="color-brown" data-style="brown"></li>
-
-									<li class="color-purple" data-style="purple"></li>
-
-									<li class="color-grey" data-style="grey"></li>
-
-									<li class="color-white color-light" data-style="light"></li>
-
-								</ul>
-
-								<label>
-
-									<span>Layout</span>
-
-									<select class="layout-option m-wrap small">
-
-										<option value="fluid" selected>Fluid</option>
-
-										<option value="boxed">Boxed</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Header</span>
-
-									<select class="header-option m-wrap small">
-
-										<option value="fixed" selected>Fixed</option>
-
-										<option value="default">Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Sidebar</span>
-
-									<select class="sidebar-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Footer</span>
-
-									<select class="footer-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected>Default</option>
-
-									</select>
-
-								</label>
-
-							</div>
-
-						</div>
+						{% include 'base/theme.html' %}
 
 						<!-- END BEGIN STYLE CUSTOMIZER -->
 
@@ -255,31 +171,32 @@
 									</thead>
 
 									<tbody>
+									 {% for obj in project_test_case_list %}
 
 										<tr class="">
 
-											<td>1</td>
+											<td>{{obj.id}}</td>
 
-											<td>test.pcm</td>
+											<td>{{obj.rrt_utterance.rrt_audio.audio_path}}</td>
 
-											<td>Janny</td>
+											<td>{{obj.rrt_utterance.rrt_audio.speaker}}</td>
 
-											<td class="center">Female</td>
+											<td class="center">{{obj.rrt_utterance.rrt_audio.gender}}</td>
 
-										    <td>你的名字是什么</td>
+										    <td>{{obj.rrt_utterance.utterance}}</td>
 
-											<td>Intent_xxxx_xxxx_xxxx</td>
+											<td>{{obj.rrt_intent.intent_name}}</td>
 
-											<td>Slotnames_xxxx_xxxx_xxxx</td>
+											<td>{{obj.rrt_slot.slot_names}}</td>
 
-											<td>Slotvalues_xxxx_xxxx_xxxx</td>
+											<td>{{obj.rrt_slot.slot_values}}</td>
 
 											<td><a class="edit" href="javascript:;">Edit</a></td>
 
 											<td><a class="delete" href="javascript:;">Delete</a></td>
 
 										</tr>
-
+									 {% endfor %}
 
 									</tbody>
 

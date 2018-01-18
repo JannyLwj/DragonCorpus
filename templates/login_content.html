@@ -1,0 +1,145 @@
+<div class="page-content">
+
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+
+
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+    			<div id="portlet-config" class="modal hide">
+
+				<div class="modal-header">
+
+					<button data-dismiss="modal" class="close" type="button"></button>
+
+					<h3>portlet Settings</h3>
+
+				</div>
+
+				<div class="modal-body">
+
+					<p>Here will be a configuration form</p>
+
+				</div>
+
+			</div>
+
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- BEGIN PAGE HEADER-->
+
+				<div class="row-fluid">
+                    <div class="span3">
+                        </div>
+
+
+                      <div class="span3">
+                        </div>
+
+				</div>
+
+				<!-- END PAGE HEADER-->
+
+				<!-- BEGIN PAGE CONTENT-->
+
+				<div class="row-fluid">
+
+
+					<div class="span12">
+
+						<!-- BEGIN SAMPLE FORM PORTLET-->
+
+						<div class="portlet box blue tabbable">
+
+							<div class="portlet-title">
+
+								<div class="caption">
+
+									<i class="icon-reorder"></i>
+
+									<span class="hidden-480">Login your account</span>
+
+								</div>
+
+							</div>
+
+							<div class="portlet-body form">
+
+								<div class="tabbable portlet-tabs">
+
+									<ul class="nav nav-tabs">
+
+									</ul>
+
+									<div class="tab-content">
+
+										<div class="tab-pane active" id="portlet_tab1">
+
+											<!-- BEGIN FORM-->
+
+											 <form class="form-horizontal" role="form" action="{% url 'accounts:login' %}" method="POST">
+                {% csrf_token %}
+                {% for item in form %}
+                <div class="form-inputs panel-signin row">
+                    <div class="control-label span1">
+                        {{item.label}}
+                    </div>
+                    <div class="span6">
+                        {{item}}
+                    </div>
+                </div>
+                <div class="form-inputs panel-signin row">
+                    <div class="span1">
+                    </div>
+                    <div class="span6">
+                        {{item.errors}}{{error_msg}}
+                    </div>
+                </div>
+                {% endfor %}
+
+
+
+                <div class="form-actions">
+                    <input type="hidden" name="next" value="{{ next }}"/>
+                    <button type="submit" class="btn blue"><i class="icon-ok"></i> login</button>
+                </div>
+            </form>
+
+											<!-- END FORM-->
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<!-- END SAMPLE FORM PORTLET-->
+
+					</div>
+
+
+				</div>
+
+				<!-- END PAGE CONTENT-->
+
+			</div>
+
+
+
+
+
+</div>
+
+			<!-- END PAGE CONTAINER-->
+
+		</div>

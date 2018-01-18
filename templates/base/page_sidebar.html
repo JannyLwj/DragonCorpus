@@ -77,14 +77,15 @@
 					</a>
 
 					<ul class="sub-menu">
-
+						 {% for obj in project_list %}
 						<li >
 
-							<a href="{% url 'management:project_overview'%}">
+							<a href="{% url 'management:project_overview_detail' obj.id%}">
 
-							{{project_name}}</a>
+							{{ obj.project_name }}</a>
 
 						</li>
+						   {% endfor %}
 					</ul>
 				</li>
 

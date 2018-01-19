@@ -42,7 +42,7 @@
 
 						<h3 class="page-title">
 
-							Project <small></small>
+							Testsuit <small></small>
 
 						</h3>
 
@@ -60,13 +60,13 @@
 
 							<li>
 
-								<a href="#">Project</a>
+								<a href="#">Testsuit</a>
 
 								<i class="icon-angle-right"></i>
 
 							</li>
 
-							<li><a href="#">{{project_name}}</a></li>
+							<li><a href="#">{{testsuit_name}}</a></li>
 
 						</ul>
 
@@ -90,7 +90,7 @@
 
 							<div class="portlet-title">
 
-								<div class="caption"><i class="icon-edit"></i>{{project_name}}</div>
+								<div class="caption"><i class="icon-edit"></i>{{testsuit_name}}</div>
 
 								<div class="tools">
 
@@ -108,45 +108,14 @@
 
 							<div class="portlet-body">
 
-								<div class="clearfix">
 
-									<div class="btn-group">
-
-										<button id="sample_editable_1_new" class="btn green">
-
-										Add New <i class="icon-plus"></i>
-
-										</button>
-
-									</div>
-
-									<div class="btn-group pull-right">
-
-										<button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="icon-angle-down"></i>
-
-										</button>
-
-										<ul class="dropdown-menu pull-right">
-
-											<li><a href="#">Print</a></li>
-
-											<li><a href="#">Save as PDF</a></li>
-
-											<li><a href="#">Export to Excel</a></li>
-
-										</ul>
-
-									</div>
-
-								</div>
-
-								<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+								<table class="table table-striped table-hover table-bordered" id="sample_editable_2">
 
 									<thead>
 
 										<tr>
 
-											<th><input type="checkbox" class="group-checkable" data-set="#sample_editable_1 .checkboxes" /></th>
+											<th><input type="checkbox" class="group-checkable" data-set="#sample_editable_2 .checkboxes" /></th>
 
 											<th>Audio</th>
 
@@ -162,8 +131,6 @@
 
 											<th>Slotvalues</th>
 
-											<th>Edit</th>
-
 											<th>Delete</th>
 
 										</tr>
@@ -171,7 +138,7 @@
 									</thead>
 
 									<tbody>
-									 {% for obj in project_test_case_list %}
+									 {% for obj in testsuit_test_case_list %}
 
 										<tr class="">
 
@@ -191,8 +158,6 @@
 
 											<td>{{obj.rrt_slot.slot_values}}</td>
 
-											<td><a class="edit" href="javascript:;">Edit</a></td>
-
 											<td><a class="delete" href="javascript:;">Delete</a></td>
 
 										</tr>
@@ -202,13 +167,13 @@
 
 								</table>
 
-								<div class="clearfix">
+									<div class="clearfix">
 
 									<div class="btn-group">
 
 										<button  class="btn green">
 
-										Add to testsuit <i class="icon-plus"></i>
+										Delete <i class="icon-remove"></i>
 
 										</button>
 
@@ -218,7 +183,7 @@
 
 										<button  class="btn green">
 
-										import HRL <i class="icon-plus"></i>
+										Download Hrl and Audio <i class="icon-download"></i>
 
 										</button>
 

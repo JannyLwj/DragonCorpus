@@ -52,15 +52,26 @@
 
 					<li>
 
-					<a class="active" href="{% url 'management:new_project'%}">
+					<a href="javascript:;">
 
 					<i class="icon-sitemap"></i>
 
-					<span class="title">Create new project</span>
+					<span class="title">Create</span>
 
 					<span class="arrow "></span>
 
 					</a>
+						<ul class="sub-menu">
+						<li >
+							<a href="{% url 'management:new_project'%}">
+							Project</a>
+						</li>
+							<li >
+							<a href="{% url 'management:new_testsuit'%}">
+							Testsuit</a>
+						</li>
+
+					</ul>
 
 				</li>
 
@@ -87,6 +98,39 @@
 						</li>
 						   {% endfor %}
 					</ul>
+				</li>
+
+
+
+
+				<li class="">
+
+					<a href="javascript:;">
+
+					<i class="icon-th"></i>
+
+					<span class="title">Testsuit Overview</span>
+
+					<span class="arrow "></span>
+
+					</a>
+
+					<ul class="sub-menu">
+
+                        {% for obj in testsuit_list %}
+						<li >
+
+							<a href="{% url 'management:testsuit_overview_detail' obj.id%}">
+
+							<i class="icon-time"></i>
+
+							{{obj.testsuit_name}}</a>
+
+						</li>
+						{% endfor %}
+
+					</ul>
+
 				</li>
 
 				<li class="">
@@ -147,102 +191,10 @@
 
 				</li>
 
-				<li class="">
-					<a href="javascript:;">
-					<i class="icon-table"></i>
-					<span class="title">Running test cases</span>
-					<span class="arrow "></span>
-					</a>
-					<ul class="sub-menu">
-						<li >
-							<a href="form_layout.html">Tuner</a>
-						</li>
-						<li >
-							<a href="form_samples.html">Navi</a>
-						</li>
-						<li >
-							<a href="form_wizard.html">
-							Media</a>
-						</li>
-						<li >
-							<a href="form_validation.html">
-							Phone</a>
-						</li>
-						<li >
-							<a href="form_fileupload.html">Message</a>
-						</li>
-						<li >
-							<a href="form_dropzone.html">Wheather</a>
-						</li>
-					</ul>
-				</li>
 
 				<li class="">
 
-					<a href="javascript:;">
-
-					<i class="icon-th"></i>
-
-					<span class="title">Testsuit Overview</span>
-
-					<span class="arrow "></span>
-
-					</a>
-
-					<ul class="sub-menu">
-
-						<li >
-
-							<a href="page_timeline.html">
-
-							<i class="icon-time"></i>
-
-							Testsuit_1</a>
-
-						</li>
-
-						<li >
-
-							<a href="page_coming_soon.html">
-
-							<i class="icon-cogs"></i>
-
-							Testsuit_2</a>
-
-						</li>
-
-						<li >
-
-							<a href="page_blog.html">
-
-							<i class="icon-comments"></i>
-
-							Testsuit_3</a>
-
-						</li>
-
-						<li >
-
-							<a href="page_blog_item.html">
-
-							<i class="icon-font"></i>
-
-							Testsuit_4</a>
-
-						</li>
-						<li >
-							<a href="page_news.html">
-							<i class="icon-coffee"></i>
-							Testsuit_5</a>
-						</li>
-					</ul>
-
-				</li>
-
-
-				<li class="">
-
-					<a href="javascript:;">
+					<a href="{% url 'management:domain'%}">
 
 					<i class="icon-gift"></i>
 
@@ -255,7 +207,7 @@
 
 				<li>
 
-					<a class="active" href="javascript:;">
+					<a class="active" href="{% url 'management:intent'%}">
 
 					<i class="icon-sitemap"></i>
 

@@ -43,7 +43,7 @@ class rrt_intent(models.Model):
         return self.intent_name
 
 class rrt_testsuit(models.Model):
-    testsuit_name = models.CharField('intent_name', max_length=255)
+    testsuit_name = models.CharField('testsuit_name', max_length=255)
     create_time = models.DateTimeField('create_time', default=timezone.now)
     def __str__(self):
         return self.testsuit_name

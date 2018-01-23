@@ -17,11 +17,18 @@ from django.conf.urls import url,include
 from django.conf.urls.static import static
 from django.contrib import admin
 import views
-from DragonCorpus import settings
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', views.index, name="index"),
     url(r'^admin/', admin.site.urls),
-    url(r'^management/', include('management.urls',  namespace='management'))
+    url(r'^management/', include('management.urls',  namespace='management')),
+    url(r'^accounts/', include('accounts.urls', namespace="accounts")),
+
+    # reset password
+    url(r'^password_reset/done/$', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', auth_views.PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'),
+    url(r'^reset/done/$', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete', ),
 ]
 

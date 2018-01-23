@@ -15,35 +15,42 @@ var TableEditable = function () {
                 oTable.fnDraw();
             }
 
+
             function editRow(oTable, nRow) {
                 var aData = oTable.fnGetData(nRow);
                 var jqTds = $('>td', nRow);
-                jqTds[0].innerHTML = '<input type="text" class="m-wrap small" value="' + aData[0] + '">';
-                jqTds[1].innerHTML = '<input type="text" class="m-wrap small" value="' + aData[1] + '">';
-                jqTds[2].innerHTML = '<input type="text" class="m-wrap small" value="' + aData[2] + '">';
-                jqTds[3].innerHTML = '<input type="text" class="m-wrap small" value="' + aData[3] + '">';
-                jqTds[4].innerHTML = '<a class="edit" href="">Save</a>';
-                jqTds[5].innerHTML = '<a class="cancel" href="">Cancel</a>';
+                jqTds[1].innerHTML = '<input type="text" style="width:40px" class="m-wrap" value="' + aData[1] + '">';
+                jqTds[2].innerHTML = '<input type="text" style="width:30px" class="m-wrap" value="' + aData[2] + '">';
+                jqTds[3].innerHTML = '<input type="text" style="width:30px" class="m-wrap" value="' + aData[3] + '">';
+                jqTds[4].innerHTML = '<input type="text" style="width:30px" class="m-wrap" value="' + aData[4] + '">';
+                jqTds[5].innerHTML = '<input type="text" style="width:30px" class="m-wrap" value="' + aData[5] + '">';
+                jqTds[6].innerHTML = '<input type="text" style="width:30px" class="m-wrap" value="' + aData[6] + '">';
+                jqTds[7].innerHTML = '<a class="edit" href="">Save</a>';
+                jqTds[8].innerHTML = '<a class="cancel" href="">Cancel</a>';
             }
 
             function saveRow(oTable, nRow) {
                 var jqInputs = $('input', nRow);
-                oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
                 oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
                 oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
                 oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-                oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
-                oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 5, false);
+                oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+                oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
+                oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
+                oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 7, false);
+                oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 8, false);
                 oTable.fnDraw();
             }
 
             function cancelEditRow(oTable, nRow) {
                 var jqInputs = $('input', nRow);
-                oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
                 oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
                 oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
                 oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-                oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
+                oTable.fnUpdate(jqInputs[4].value, nRow, 4, false);
+                oTable.fnUpdate(jqInputs[5].value, nRow, 5, false);
+                oTable.fnUpdate(jqInputs[6].value, nRow, 6, false);
+                oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 7, false);
                 oTable.fnDraw();
             }
 
@@ -53,7 +60,7 @@ var TableEditable = function () {
                     [5, 15, 20, "All"] // change per page values here
                 ],
                 // set the initial value
-                "iDisplayLength": 5,
+                "iDisplayLength": 20,
                 "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
                 "sPaginationType": "bootstrap",
                 "oLanguage": {
@@ -70,6 +77,19 @@ var TableEditable = function () {
                 ]
             });
 
+            jQuery('#sample_editable_1 .group-checkable').change(function () {
+                var set = jQuery(this).attr("data-set");
+                var checked = jQuery(this).is(":checked");
+                jQuery(set).each(function () {
+                    if (checked) {
+                        $(this).attr("checked", true);
+                    } else {
+                        $(this).attr("checked", false);
+                    }
+                });
+                jQuery.uniform.update(set);
+            });
+
             jQuery('#sample_editable_1_wrapper .dataTables_filter input').addClass("m-wrap medium"); // modify table search input
             jQuery('#sample_editable_1_wrapper .dataTables_length select').addClass("m-wrap small"); // modify table per page dropdown
             jQuery('#sample_editable_1_wrapper .dataTables_length select').select2({
@@ -80,7 +100,7 @@ var TableEditable = function () {
 
             $('#sample_editable_1_new').click(function (e) {
                 e.preventDefault();
-                var aiNew = oTable.fnAddData(['', '', '', '',
+                var aiNew = oTable.fnAddData(['<div class="checker"><span><td><input type="checkbox" class="checkboxes" value="1" /></td></span></div>', '', '', '', '', '', '',
                         '<a class="edit" href="">Edit</a>', '<a class="cancel" data-mode="new" href="">Cancel</a>'
                 ]);
                 var nRow = oTable.fnGetNodes(aiNew[0]);
@@ -134,6 +154,7 @@ var TableEditable = function () {
                 }
             });
         }
+
 
     };
 

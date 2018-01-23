@@ -1,0 +1,225 @@
+<div class="page-sidebar nav-collapse collapse">
+
+			<!-- BEGIN SIDEBAR MENU -->
+
+			<ul class="page-sidebar-menu">
+
+				<li>
+
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+
+					<div class="sidebar-toggler hidden-phone"></div>
+
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+
+				</li>
+
+				<li>
+
+					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+
+					<form class="sidebar-search">
+
+						<div class="input-box">
+
+							<a href="javascript:;" class="remove"></a>
+
+							<input type="text" placeholder="Search..." />
+
+							<input type="button" class="submit" value=" " />
+
+						</div>
+
+					</form>
+
+					<!-- END RESPONSIVE QUICK SEARCH FORM -->
+
+				</li>
+
+				<li class="start active ">
+
+					<a href="{% url 'management:index'%}">
+
+					<i class="icon-home"></i>
+
+					<span class="title" >Dashboard</span>
+
+					<span class="selected"></span>
+
+					</a>
+
+				</li>
+
+					<li>
+
+					<a href="javascript:;">
+
+					<i class="icon-sitemap"></i>
+
+					<span class="title">Create</span>
+
+					<span class="arrow "></span>
+
+					</a>
+						<ul class="sub-menu">
+						<li >
+							<a href="{% url 'management:new_project'%}">
+							Project</a>
+						</li>
+							<li >
+							<a href="{% url 'management:new_testsuit'%}">
+							Testsuit</a>
+						</li>
+
+					</ul>
+
+				</li>
+
+				<li class="">
+
+					<a href="javascript:;">
+
+					<i class="icon-cogs"></i>
+
+					<span class="title" >Project Overview</span>
+
+					<span class="arrow "></span>
+
+					</a>
+
+					<ul class="sub-menu">
+						 {% for obj in project_list %}
+						<li >
+
+							<a href="{% url 'management:project_overview_detail' obj.id%}">
+
+							{{ obj.project_name }}</a>
+
+						</li>
+						   {% endfor %}
+						<li >
+
+							<a href="">
+
+							See More</a>
+
+						</li>
+
+					</ul>
+				</li>
+
+
+
+
+				<li class="">
+
+					<a href="javascript:;">
+
+					<i class="icon-th"></i>
+
+					<span class="title">Testsuit Overview</span>
+
+					<span class="arrow "></span>
+
+					</a>
+
+					<ul class="sub-menu">
+
+                        {% for obj in testsuit_list %}
+						<li >
+
+							<a href="{% url 'management:testsuit_overview_detail' obj.id%}">
+
+							{{obj.testsuit_name}}</a>
+
+						</li>
+						{% endfor %}
+						<li >
+
+							<a href="">
+
+							See More</a>
+
+						</li>
+
+					</ul>
+
+				</li>
+
+				<li class="">
+
+					<a href="javascript:;">
+
+					<i class="icon-bookmark-empty"></i>
+
+					<span class="title">Config management</span>
+
+					<span class="arrow "></span>
+
+					</a>
+
+					<ul class="sub-menu">
+
+						<li >
+
+							<a href="ui_general.html">
+
+							Project1_config</a>
+
+						</li>
+
+						<li >
+
+							<a href="ui_buttons.html">
+
+							Project2_config</a>
+
+						</li>
+
+						<li >
+
+							<a href="ui_modals.html">
+
+							Project3_config</a>
+
+						</li>
+
+						<li >
+
+							<a href="ui_tabs_accordions.html">
+
+							Project4_config</a>
+
+						</li>
+
+						<li >
+
+							<a href="ui_jqueryui.html">
+
+							Project5_config</a>
+
+						</li>
+
+					</ul>
+
+				</li>
+
+				<li>
+
+					<a href="{% url 'management:utterance'%}">
+
+					<i class="icon-folder-open"></i>
+
+					<span class="title">Utterance</span>
+
+					<span class="arrow "></span>
+
+					</a>
+
+				</li>
+
+			</ul>
+
+			<!-- END SIDEBAR MENU -->
+
+		</div>

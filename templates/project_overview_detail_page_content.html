@@ -1,0 +1,374 @@
+<div class="page-content">
+
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<div id="portlet-config" class="modal hide">
+
+				<div class="modal-header">
+
+					<button data-dismiss="modal" class="close" type="button"></button>
+
+					<h3>portlet Settings</h3>
+
+				</div>
+
+				<div class="modal-body">
+
+					<p>Here will be a configuration form</p>
+
+				</div>
+
+			</div>
+
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- BEGIN PAGE HEADER-->
+
+				<div class="row-fluid">
+
+					<div class="span12">
+
+						<!-- BEGIN STYLE CUSTOMIZER -->
+
+						{% include 'base/theme.html' %}
+
+						<!-- END BEGIN STYLE CUSTOMIZER -->
+
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+						<h3 class="page-title">
+
+							Project <small></small>
+
+						</h3>
+
+						<ul class="breadcrumb">
+
+							<li>
+
+								<i class="icon-home"></i>
+
+								<a href="index.html">Home</a>
+
+								<i class="icon-angle-right"></i>
+
+							</li>
+
+							<li>
+
+								<a href="#">Project</a>
+
+								<i class="icon-angle-right"></i>
+
+							</li>
+
+							<li><a href="#">{{project_name}}</a></li>
+
+						</ul>
+
+						<!-- END PAGE TITLE & BREADCRUMB-->
+
+					</div>
+
+				</div>
+
+				<!-- END PAGE HEADER-->
+
+					<div id="dashboard">
+
+					<!-- BEGIN DASHBOARD STATS -->
+
+					<div class="row-fluid">
+
+						<div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+
+							<div class="dashboard-stat blue">
+
+								<div class="visual">
+
+									<i class="icon-leaf"></i>
+
+								</div>
+
+								<div class="details">
+
+									<div class="number">
+
+										{{rrt_project_count}}
+
+									</div>
+
+									<div class="desc">
+
+										Domain
+
+									</div>
+
+								</div>
+
+								<a class="more" href="#">
+
+								<i class="m-icon-swapright m-icon-white"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+						<div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+
+							<div class="dashboard-stat green">
+
+								<div class="visual">
+
+									<i class="icon-magnet"></i>
+
+								</div>
+
+								<div class="details">
+
+									<div class="number">{{rrt_domain_count}}</div>
+
+									<div class="desc">Utterance</div>
+
+								</div>
+
+								<a class="more" href="#">
+
+								 <i class="m-icon-swapright m-icon-white"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+						<div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+
+							<div class="dashboard-stat purple">
+
+								<div class="visual">
+
+									<i class="icon-tasks"></i>
+
+								</div>
+
+								<div class="details">
+
+									<div class="number">{{rrt_intent_count}}</div>
+
+									<div class="desc">Intent</div>
+
+								</div>
+
+								<a class="more" href="#">
+
+								 <i class="m-icon-swapright m-icon-white"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+						<div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+
+							<div class="dashboard-stat yellow">
+
+								<div class="visual">
+
+									<i class="icon-pencil"></i>
+
+								</div>
+
+								<div class="details">
+
+									<div class="number">{{rrt_audio_count}}</div>
+
+									<div class="desc">Slot</div>
+
+								</div>
+
+								<a class="more" href="#">
+
+								 <i class="m-icon-swapright m-icon-white"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<!-- END DASHBOARD STATS -->
+				</div>
+
+				<!-- BEGIN PAGE CONTENT-->
+
+				<div class="row-fluid">
+
+
+					<div class="span10">
+
+						<!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+						<div class="portlet box blue">
+
+							<div class="portlet-title">
+
+								<div class="caption"><i class="icon-edit"></i>{{project_name}}</div>
+
+								<div class="tools">
+
+									<a href="javascript:;" class="collapse"></a>
+
+									<a href="#portlet-config" data-toggle="modal" class="config"></a>
+
+									<a href="javascript:;" class="reload"></a>
+
+									<a href="javascript:;" class="remove"></a>
+
+								</div>
+
+							</div>
+
+							<div class="portlet-body">
+
+								<div class="clearfix">
+
+									<div class="btn-group">
+
+										<button id="sample_editable_1_new" class="btn green">
+
+										Add New <i class="icon-plus"></i>
+
+										</button>
+
+									</div>
+
+									<div class="btn-group pull-right">
+
+										<button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="icon-angle-down"></i>
+
+										</button>
+
+										<ul class="dropdown-menu pull-right">
+
+											<li><a href="#">Print</a></li>
+
+											<li><a href="#">Save as PDF</a></li>
+
+											<li><a href="#">Export to Excel</a></li>
+
+										</ul>
+
+									</div>
+
+								</div>
+
+								<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+
+									<thead>
+
+										<tr>
+
+											<th><input type="checkbox" class="group-checkable" data-set="#sample_editable_1 .checkboxes" /></th>
+
+											<th>Utterance</th>
+
+											<th>Audio</th>
+
+											<th>Domain</th>
+
+											<th>Intent</th>
+
+											<th>Slotnames</th>
+
+											<th>Slotvalues</th>
+
+											<th>Edit</th>
+
+											<th>Delete</th>
+
+										</tr>
+
+									</thead>
+
+									<tbody>
+									 {% for obj in project_test_case_list %}
+
+										<tr class="">
+
+											<td><input type="checkbox" class="checkboxes" value="1" /></td>
+
+											<td>{{obj.rrt_utterance.utterance}}</td>
+
+											<td>{{obj.rrt_audio.audio_path}}</td>
+
+											<td class="center">{{obj.rrt_domain.domain_name}}</td>
+
+										    <td>{{obj.rrt_intent.intent_name}}</td>
+
+											<td>{{obj.rrt_slot.slot_names}}</td>
+
+											<td>{{obj.rrt_slot.slot_values}}</td>
+
+											<td><a class="edit" href="javascript:;">Edit</a></td>
+
+											<td><a class="delete" href="javascript:;">Delete</a></td>
+
+										</tr>
+									 {% endfor %}
+
+									</tbody>
+
+								</table>
+
+								<div class="clearfix">
+
+									<div class="btn-group">
+
+										<button  class="btn green">
+
+										Add to testsuit <i class="icon-plus"></i>
+
+										</button>
+
+									</div>
+
+									<div class="btn-group">
+
+										<button  class="btn green">
+
+										import HRL <i class="icon-plus"></i>
+
+										</button>
+
+									</div>
+
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<!-- END EXAMPLE TABLE PORTLET-->
+
+					</div>
+
+				</div>
+
+				<!-- END PAGE CONTENT -->
+
+			</div>
+
+			<!-- END PAGE CONTAINER-->
+
+		</div>

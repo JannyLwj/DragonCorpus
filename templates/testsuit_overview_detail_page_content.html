@@ -1,0 +1,220 @@
+<div class="page-content">
+
+			<!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<div id="portlet-config" class="modal hide">
+
+				<div class="modal-header">
+
+					<button data-dismiss="modal" class="close" type="button"></button>
+
+					<h3>portlet Settings</h3>
+
+				</div>
+
+				<div class="modal-body">
+
+					<p>Here will be a configuration form</p>
+
+				</div>
+
+			</div>
+
+			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+			<!-- BEGIN PAGE CONTAINER-->
+
+			<div class="container-fluid">
+
+				<!-- BEGIN PAGE HEADER-->
+
+				<div class="row-fluid">
+
+					<div class="span12">
+
+						<!-- BEGIN STYLE CUSTOMIZER -->
+
+						{% include 'base/theme.html' %}
+
+						<!-- END BEGIN STYLE CUSTOMIZER -->
+
+						<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+
+						<h3 class="page-title">
+
+							Testsuit <small></small>
+
+						</h3>
+
+						<ul class="breadcrumb">
+
+							<li>
+
+								<i class="icon-home"></i>
+
+								<a href="index.html">Home</a>
+
+								<i class="icon-angle-right"></i>
+
+							</li>
+
+							<li>
+
+								<a href="#">Testsuit</a>
+
+								<i class="icon-angle-right"></i>
+
+							</li>
+
+							<li><a href="#">{{testsuit_name}}</a></li>
+
+						</ul>
+
+						<!-- END PAGE TITLE & BREADCRUMB-->
+
+					</div>
+
+				</div>
+
+				<!-- END PAGE HEADER-->
+
+				<!-- BEGIN PAGE CONTENT-->
+
+				<div class="row-fluid">
+
+					<div class="span10">
+
+						<!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+						<div class="portlet box blue">
+
+							<div class="portlet-title">
+
+								<div class="caption"><i class="icon-edit"></i>{{testsuit_name}}</div>
+
+								<div class="tools">
+
+									<a href="javascript:;" class="collapse"></a>
+
+									<a href="#portlet-config" data-toggle="modal" class="config"></a>
+
+									<a href="javascript:;" class="reload"></a>
+
+									<a href="javascript:;" class="remove"></a>
+
+								</div>
+
+							</div>
+
+							<div class="portlet-body">
+
+
+								<table class="table table-striped table-hover table-bordered" id="sample_editable_2">
+
+									<thead>
+
+										<tr>
+
+											<th><input type="checkbox" class="group-checkable" data-set="#sample_editable_2 .checkboxes" /></th>
+
+											<th>Audio</th>
+
+											<th>Speaker</th>
+
+											<th>Gender</th>
+
+											<th>Utterance</th>
+
+											<th>Intent</th>
+
+											<th>Slotnames</th>
+
+											<th>Slotvalues</th>
+
+											<th>Delete</th>
+
+										</tr>
+
+									</thead>
+
+									<tbody>
+									 {% for obj in testsuit_test_case_list %}
+
+										<tr class="">
+
+											<td><input type="checkbox" class="checkboxes" value="1" /></td>
+
+											<td>{{obj.rrt_utterance.rrt_audio.audio_path}}</td>
+
+											<td>{{obj.rrt_utterance.rrt_audio.speaker}}</td>
+
+											<td class="center">{{obj.rrt_utterance.rrt_audio.gender}}</td>
+
+										    <td>{{obj.rrt_utterance.utterance}}</td>
+
+											<td>{{obj.rrt_intent.intent_name}}</td>
+
+											<td>{{obj.rrt_slot.slot_names}}</td>
+
+											<td>{{obj.rrt_slot.slot_values}}</td>
+
+											<td><a class="delete" href="javascript:;">Delete</a></td>
+
+										</tr>
+									 {% endfor %}
+
+									</tbody>
+
+								</table>
+
+									<div class="clearfix">
+
+									<div class="btn-group">
+
+										<button  class="btn green">
+
+										Delete <i class="icon-remove"></i>
+
+										</button>
+
+									</div>
+
+									<div class="btn-group">
+
+										<button  class="btn green">
+
+										Download Hrl and Audio <i class="icon-download"></i>
+
+										</button>
+
+									</div>
+
+												<div class="btn-group">
+
+										<button  class="btn green">
+
+										Delete testsuit<i class="icon-remove"></i>
+
+										</button>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+						<!-- END EXAMPLE TABLE PORTLET-->
+
+					</div>
+
+				</div>
+
+				<!-- END PAGE CONTENT -->
+
+			</div>
+
+			<!-- END PAGE CONTAINER-->
+
+		</div>

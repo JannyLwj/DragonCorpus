@@ -27,7 +27,7 @@ class rrt_project_test_case_Admin(admin.ModelAdmin):
     list_display = ('id','project_id','domain_id','utterance_id','intent_id','case_priority','select_times','select_flag','testsuit_id')
 
 class rrt_slot_Admin(admin.ModelAdmin):
-    list_display = ('id','slot_names','slot_values','project_test_case_id')
+    list_display = ('id','slot_names','slot_values')
 
 class rrt_baseline_test_case_Admin(admin.ModelAdmin):
     list_display = ('id','project_test_case_id','utterance_id','case_priority','select_times','select_flag')

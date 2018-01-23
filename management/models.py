@@ -28,7 +28,7 @@ class rrt_audio(models.Model):
     audio_path = models.CharField('audio_path', max_length=255)
     speaker = models.CharField('speaker', max_length=255)
     gender = models.CharField('gender', max_length=255)
-    format = models.CharField('format', max_length=255)
+    format = models.CharField('format', max_length=255,default=16*16)
     create_time = models.DateTimeField('create_time', default=timezone.now)
 
     def __str__(self):
@@ -61,25 +61,25 @@ class rrt_testsuit(models.Model):
         return self.testsuit_name
 
 
+class rrt_slot(models.Model):
+    slot_names = models.CharField('slot_names', max_length=255)
+    slot_values = models.CharField('slot_values', max_length=255)
+
+    def __str__(self):
+        return self.slot_names
+
+
 class rrt_project_test_case(models.Model):
     case_priority = models.IntegerField('case_priority', default=0)
     select_times = models.IntegerField('select_times', default=0)
     select_flag = models.BooleanField('select flag', default=False)
     # ForeignKey
-    testsuit_id = models.ForeignKey(rrt_testsuit)
+    testsuit_id = models.ForeignKey(rrt_testsuit,null=True)
     project_id = models.ForeignKey(rrt_project)
     domain_id = models.ForeignKey(rrt_domain)
     utterance_id = models.ForeignKey(rrt_utterance)
     intent_id = models.ForeignKey(rrt_intent)
-
-
-class rrt_slot(models.Model):
-    slot_names = models.CharField('slot_names', max_length=255)
-    slot_values = models.CharField('slot_values', max_length=255)
-    project_test_case_id = models.ForeignKey(rrt_project_test_case)
-
-    def __str__(self):
-        return self.slot_names
+    slot_id=models.ForeignKey(rrt_slot)
 
 
 class rrt_baseline_test_case(models.Model):

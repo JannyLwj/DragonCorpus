@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 import os
 from audioop import reverse
+
+import time
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -56,9 +58,10 @@ def project_overview_detail(request, project_id):
     """
         Show all test case
         Show status of testcase       """
+    startTimer = time.time()
     project_list = models.rrt_project.objects.all().order_by('-modify_time')[0:5]
     testsuit_list = models.rrt_testsuit.objects.all().order_by('-create_time')[0:5]
-    project_test_case_list = rrt_project_test_case.objects.filter(project_id_id=project_id)
+    project_test_case_list_mid = rrt_project_test_case.objects.filter(project_id_id=project_id)
     project = rrt_project.objects.get(id=project_id)
     project_name = project.project_name
 
@@ -68,8 +71,28 @@ def project_overview_detail(request, project_id):
     intent_list_count = rrt_project_test_case.objects.filter(project_id=project_id).values('utterance_id').distinct().count()
     # slot_list_count = rrt_slot.objects.filter(project_id=project_id).values('utterance_id').distinct().count()
 
-    context = {'project_name': project_name, 'project_test_case_list': project_test_case_list,
-               'project_list': project_list, 'testsuit_list': testsuit_list}
+    project_test_case_list = project_test_case_list_mid.select_related("utterance_id", "domain_id")
+
+
+    print 'Elapsed Middle time (sec) = ', time.time() - startTimer
+
+    project_test_output = list()
+    for project_test in project_test_case_list:
+        project_test_item = dict()
+        utterance_id = dict()
+        utterance_id["utterance"] = project_test.utterance_id.utterance
+        project_test_item["utterance_id"] = utterance_id
+        domain_id = dict()
+        domain_id["domain_name"] = project_test.domain_id.domain_name
+        project_test_item["domain_id"] = domain_id
+        project_test_output.append(project_test_item)
+
+    print 'Elapsed time (sec) = ', time.time() - startTimer
+
+    # context = {'project_name': project_name, 'project_test_case_list': project_test,
+    #            'project_list': project_list, 'testsuit_list': testsuit_list}
+
+    context = {'project_name': project_name, 'project_test_case_list': project_test_output,}
     return render(request, 'management/project_overview_detail.html', context)
 
 

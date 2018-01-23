@@ -58,10 +58,12 @@ def project_overview_detail(request,project_id):
     project=rrt_project.objects.get(id=project_id)
     project_name=project.project_name
 
+#begin
     # domain_list_count=rrt_project_test_case.objects.filter(project_id_id=project_id).values('domain_id_id').distinct().count()
     # intent_list_count=rrt_project_test_case.objects.filter(project_id_id=project_id).values('intent_id_id').distinct().count()
     # intent_list_count = rrt_project_test_case.objects.filter(project_id_id=project_id).values('utterance_id').distinct().count()
     # slot_list_count = rrt_slot.objects.filter(project_id_id=project_id).values('utterance_id').distinct().count()
+
 
     context = {'project_name':project_name,'project_test_case_list': project_test_case_list,'project_list': project_list,'testsuit_list':testsuit_list}
     return render(request, 'management/project_overview_detail.html', context)

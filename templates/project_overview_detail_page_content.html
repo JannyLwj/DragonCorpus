@@ -78,9 +78,141 @@
 
 				<!-- END PAGE HEADER-->
 
+					<div id="dashboard">
+
+					<!-- BEGIN DASHBOARD STATS -->
+
+					<div class="row-fluid">
+
+						<div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+
+							<div class="dashboard-stat blue">
+
+								<div class="visual">
+
+									<i class="icon-leaf"></i>
+
+								</div>
+
+								<div class="details">
+
+									<div class="number">
+
+										{{rrt_project_count}}
+
+									</div>
+
+									<div class="desc">
+
+										Domain
+
+									</div>
+
+								</div>
+
+								<a class="more" href="#">
+
+								<i class="m-icon-swapright m-icon-white"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+						<div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+
+							<div class="dashboard-stat green">
+
+								<div class="visual">
+
+									<i class="icon-magnet"></i>
+
+								</div>
+
+								<div class="details">
+
+									<div class="number">{{rrt_domain_count}}</div>
+
+									<div class="desc">Utterance</div>
+
+								</div>
+
+								<a class="more" href="#">
+
+								 <i class="m-icon-swapright m-icon-white"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+						<div class="span3 responsive" data-tablet="span6  fix-offset" data-desktop="span3">
+
+							<div class="dashboard-stat purple">
+
+								<div class="visual">
+
+									<i class="icon-tasks"></i>
+
+								</div>
+
+								<div class="details">
+
+									<div class="number">{{rrt_intent_count}}</div>
+
+									<div class="desc">Intent</div>
+
+								</div>
+
+								<a class="more" href="#">
+
+								 <i class="m-icon-swapright m-icon-white"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+						<div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+
+							<div class="dashboard-stat yellow">
+
+								<div class="visual">
+
+									<i class="icon-pencil"></i>
+
+								</div>
+
+								<div class="details">
+
+									<div class="number">{{rrt_audio_count}}</div>
+
+									<div class="desc">Slot</div>
+
+								</div>
+
+								<a class="more" href="#">
+
+								 <i class="m-icon-swapright m-icon-white"></i>
+
+								</a>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					<!-- END DASHBOARD STATS -->
+				</div>
+
 				<!-- BEGIN PAGE CONTENT-->
 
 				<div class="row-fluid">
+
 
 					<div class="span10">
 
@@ -148,13 +280,11 @@
 
 											<th><input type="checkbox" class="group-checkable" data-set="#sample_editable_1 .checkboxes" /></th>
 
+											<th>Utterance</th>
+
 											<th>Audio</th>
 
-											<th>Speaker</th>
-
-											<th>Gender</th>
-
-											<th>Utterance</th>
+											<th>Domain</th>
 
 											<th>Intent</th>
 
@@ -177,15 +307,13 @@
 
 											<td><input type="checkbox" class="checkboxes" value="1" /></td>
 
-											<td>{{obj.rrt_utterance.rrt_audio.audio_path}}</td>
+											<td>{{obj.rrt_utterance.utterance}}</td>
 
-											<td>{{obj.rrt_utterance.rrt_audio.speaker}}</td>
+											<td>{{obj.rrt_audio.audio_path}}</td>
 
-											<td class="center">{{obj.rrt_utterance.rrt_audio.gender}}</td>
+											<td class="center">{{obj.rrt_domain.domain_name}}</td>
 
-										    <td>{{obj.rrt_utterance.utterance}}</td>
-
-											<td>{{obj.rrt_intent.intent_name}}</td>
+										    <td>{{obj.rrt_intent.intent_name}}</td>
 
 											<td>{{obj.rrt_slot.slot_names}}</td>
 

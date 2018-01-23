@@ -15,7 +15,7 @@ from rest_framework.renderers import JSONRenderer
 
 from management import models
 from management.Forms import New_Project_Form, New_Testsuit_Form
-from management.models import rrt_project, rrt_project_test_case, rrt_testsuit
+from management.models import rrt_project, rrt_project_test_case, rrt_testsuit, rrt_slot
 
 
 class JSONResponse(HttpResponse):
@@ -57,6 +57,12 @@ def project_overview_detail(request,project_id):
     project_test_case_list=rrt_project_test_case.objects.filter(project_id_id=project_id)
     project=rrt_project.objects.get(id=project_id)
     project_name=project.project_name
+
+    # domain_list_count=rrt_project_test_case.objects.filter(project_id_id=project_id).values('domain_id_id').distinct().count()
+    # intent_list_count=rrt_project_test_case.objects.filter(project_id_id=project_id).values('intent_id_id').distinct().count()
+    # intent_list_count = rrt_project_test_case.objects.filter(project_id_id=project_id).values('utterance_id').distinct().count()
+    # slot_list_count = rrt_slot.objects.filter(project_id_id=project_id).values('utterance_id').distinct().count()
+
     context = {'project_name':project_name,'project_test_case_list': project_test_case_list,'project_list': project_list,'testsuit_list':testsuit_list}
     return render(request, 'management/project_overview_detail.html', context)
 
@@ -133,26 +139,16 @@ def new_testsuit(request):
             #弹出alert窗口
             print "error"
 
-def domain(request):
+
+
+def utterance(request):
     """
         Show all test case
         Show status of testcase
        """
     project_list = models.rrt_project.objects.all().order_by('-modify_time')[0:5]
     testsuit_list = models.rrt_testsuit.objects.all().order_by('-create_time')[0:5]
-    domain_list=models.rrt_domain.objects.all()
-    context={'domain_list': domain_list, 'project_list': project_list,'testsuit_list':testsuit_list}
+    utterance_list=models.rrt_utterance.objects.all()
+    context={'utterance_list': utterance_list, 'project_list': project_list,'testsuit_list':testsuit_list}
 
-    return render(request, 'management/domain.html',context)
-
-def intent(request):
-    """
-        Show all test case
-        Show status of testcase
-       """
-    project_list = models.rrt_project.objects.all().order_by('-modify_time')[0:5]
-    testsuit_list = models.rrt_testsuit.objects.all().order_by('-create_time')[0:5]
-    intent_list=models.rrt_intent.objects.all()
-    context={'intent_list': intent_list, 'project_list': project_list,'testsuit_list':testsuit_list}
-
-    return render(request, 'management/intent.html',context)
+    return render(request, 'management/utterance.html',context)

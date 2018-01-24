@@ -98,7 +98,7 @@
 
 									<div class="number">
 
-										{{rrt_project_count}}
+										{{domain_list_count}}
 
 									</div>
 
@@ -132,7 +132,7 @@
 
 								<div class="details">
 
-									<div class="number">{{rrt_domain_count}}</div>
+									<div class="number">{{utterance_list_count}}</div>
 
 									<div class="desc">Utterance</div>
 
@@ -160,7 +160,7 @@
 
 								<div class="details">
 
-									<div class="number">{{rrt_intent_count}}</div>
+									<div class="number">{{intent_list_count}}</div>
 
 									<div class="desc">Intent</div>
 
@@ -188,7 +188,7 @@
 
 								<div class="details">
 
-									<div class="number">{{rrt_audio_count}}</div>
+									<div class="number">{{slot_list_count}}</div>
 
 									<div class="desc">Slot</div>
 
@@ -219,7 +219,6 @@
 						<!-- BEGIN EXAMPLE TABLE PORTLET-->
 
 						<div class="portlet box blue">
-
 							<div class="portlet-title">
 
 								<div class="caption"><i class="icon-edit"></i>{{project_name}}</div>
@@ -240,95 +239,22 @@
 
 							<div class="portlet-body">
 
-								<div class="clearfix">
 
-									<div class="btn-group">
+  									<div class="btn-group">
 
-										<button id="sample_editable_1_new" class="btn green">
+										<button  id="button" class="btn green">
 
-										Add New <i class="icon-plus"></i>
+										Add New <i class="icon-add"></i>
 
 										</button>
 
 									</div>
+								 <table class="table table-condensed" style="word-break:break-all; word-wrap:break-all" id="table" data-show-toggle="false" data-locale="en-US" data-minimum-count-columns="2"
+                        data-id-field="id" data-show-footer="false" data-side-pagination="client" data-response-handler="responseHandler" data-row-style="rowStyle"
+                        data-detail-view="false" data-detail-formatter="detailFormatter" data-toolbar="#toolbar"
+                        data-url={% url 'management:project_overview_detail_table' %}>
 
-									<div class="btn-group pull-right">
-
-										<button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="icon-angle-down"></i>
-
-										</button>
-
-										<ul class="dropdown-menu pull-right">
-
-											<li><a href="#">Print</a></li>
-
-											<li><a href="#">Save as PDF</a></li>
-
-											<li><a href="#">Export to Excel</a></li>
-
-										</ul>
-
-									</div>
-
-								</div>
-
-								<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-
-									<thead>
-
-										<tr>
-
-											<th><input type="checkbox" class="group-checkable" data-set="#sample_editable_1 .checkboxes" /></th>
-
-											<th>Utterance</th>
-
-											<th>Audio</th>
-
-											<th>Domain</th>
-
-											<th>Intent</th>
-
-											<th>Slotnames</th>
-
-											<th>Slotvalues</th>
-
-											<th>Edit</th>
-
-											<th>Delete</th>
-
-										</tr>
-
-									</thead>
-
-									<tbody>
-									 {% for obj in project_test_case_list %}
-
-										<tr class="">
-
-											<td><input type="checkbox" class="checkboxes" value="1" /></td>
-
-											<td>{{obj.utterance_id.utterance}}</td>
-
-											<td>{{obj.utterance_id.audio_id.audio_path}}</td>
-
-											<td class="center">{{obj.domain_id.domain_name}}</td>
-
-										    <td>{{obj.intent_id.intent_name}}</td>
-
-											<td>{{obj.slot_id.slot_names}}</td>
-
-											<td>{{obj.slot_id.slot_values}}</td>
-
-											<td><a class="edit" href="javascript:;">Edit</a></td>
-
-											<td><a class="delete" href="javascript:;">Delete</a></td>
-
-										</tr>
-									 {% endfor %}
-
-									</tbody>
-
-								</table>
+                        </table>
 
 								<div class="clearfix">
 
@@ -349,6 +275,7 @@
 										import HRL <i class="icon-plus"></i>
 
 										</button>
+
 
 									</div>
 
@@ -372,3 +299,177 @@
 			<!-- END PAGE CONTAINER-->
 
 		</div>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+
+<script src="/static/media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script src="/static/bootstrap-table/bootstrap-table.js"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap-editable/js/bootstrap-editable.js"></script>
+<script src="/static/bootstrap-table/extensions/bootstrap-table-editable.js"></script>
+
+<script>
+    jQuery(document).ready(function () {
+        initTable();
+
+    });
+
+    var $table = $('#table'),
+        selections = [];
+
+    $button = $('#button');
+
+    $(function () {
+         $button.click(function () {
+             $table.bootstrapTable('insertRow', {
+                 index: 0,
+                 row: {
+                     utterance: '',
+                     audio: '',
+                     domain: '',
+                     intent:'',
+                     slotnames: '',
+                     slotvalues: '',
+                 }
+             });
+         });
+     });
+
+    function initTable() {
+        $table.bootstrapTable({
+            height: getHeight(),
+            pagination: true,
+			pageNumber: 1,
+			pageSize: 25,
+			pageList: [10, 25, 50, 100],
+			search: true,
+			sortable: true,
+            sortOrder: "asc",
+			<!--strictSearch: true,-->
+			<!--showPaginationSwitch:true,-->
+            columns: [
+                [{
+                    checkbox: true,
+                    visible: true
+                }, {
+                        title: 'utterance',
+                        field: 'utterance',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '15%'
+                    },
+                    {
+                        title: 'audio',
+                        field: 'audio',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '20%'
+                    },
+                    {
+                        title: 'domain',
+                        field: 'domain',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '10%'
+                    },
+                    {
+                        title: 'intent',
+                        field: 'intent',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '10%'
+                    },
+                    {
+                        title: 'slotnames',
+                        field: 'slotnames',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '30%'
+                    },
+                    {
+                        title: 'slotvalues',
+                        field: 'slotvalues',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '30%'
+                    }
+                ],
+            ]
+        });
+        // sometimes footer render error.
+        setTimeout(function () {
+            $table.bootstrapTable('resetView');
+        }, 200);
+        $(window).resize(function () {
+            $table.bootstrapTable('resetView', {
+                height: getHeight()
+            });
+        });
+    }
+
+    function responseHandler(res) {
+        return res;
+    }
+
+    function getHeight() {
+        return $(window).height() - 200;
+    }
+
+    function totalTextFormatter(data) {
+        return 'Total';
+    }
+
+    function totalNameFormatter(data) {
+        return data.length;
+    }
+
+    function rowStyle(row, index) {
+        var classes = ['active', 'success', 'info', 'warning', 'danger'];
+        if (index % 2 === 0) {
+            return {
+                classes: classes[index % 2]
+            };
+        }
+        return {};
+    }
+
+    function cellStyle(value, row, index, field) {
+        return {
+            css: {
+                "word-break": "break-all",
+                "word-wrap": "break-all",
+                "font-size": "10px"
+            }
+        };
+    }
+
+    function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p>' + value + '</p>');
+        });
+        return html.join('');
+    }
+    window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        }
+    };
+
+    function operateFormatter(value, row, index) {
+        var work_set_id = row.work_set_id;
+        return [
+            '<a class="btn btn-success ',
+            '"href="/annotation_review/show_detail_report/',
+            work_set_id,
+            '/">Detail',
+            '</a>'
+        ].join('');
+    }
+
+</script>

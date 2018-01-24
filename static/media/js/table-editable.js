@@ -55,6 +55,7 @@ var TableEditable = function () {
             }
 
             var oTable = $('#sample_editable_1').dataTable({
+                "sAjaxSource": "url"
                 "aLengthMenu": [
                     [5, 15, 20, -1],
                     [5, 15, 20, "All"] // change per page values here

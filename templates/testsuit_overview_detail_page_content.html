@@ -109,63 +109,65 @@
 							<div class="portlet-body">
 
 
-								<table class="table table-striped table-hover table-bordered" id="sample_editable_2">
 
-									<thead>
 
-										<tr>
+								<!--<table class="table table-striped table-hover table-bordered" id="sample_editable_2">-->
 
-											<th><input type="checkbox" class="group-checkable" data-set="#sample_editable_2 .checkboxes" /></th>
+									<!--<thead>-->
 
-											<th>Audio</th>
+										<!--<tr>-->
 
-											<th>Speaker</th>
+											<!--<th><input type="checkbox" class="group-checkable" data-set="#sample_editable_2 .checkboxes" /></th>-->
 
-											<th>Gender</th>
+											<!--<th>Audio</th>-->
 
-											<th>Utterance</th>
+											<!--<th>Speaker</th>-->
 
-											<th>Intent</th>
+											<!--<th>Gender</th>-->
 
-											<th>Slotnames</th>
+											<!--<th>Utterance</th>-->
 
-											<th>Slotvalues</th>
+											<!--<th>Intent</th>-->
 
-											<th>Delete</th>
+											<!--<th>Slotnames</th>-->
 
-										</tr>
+											<!--<th>Slotvalues</th>-->
 
-									</thead>
+											<!--<th>Delete</th>-->
 
-									<tbody>
-									 {% for obj in testsuit_test_case_list %}
+										<!--</tr>-->
 
-										<tr class="">
+									<!--</thead>-->
 
-											<td><input type="checkbox" class="checkboxes" value="1" /></td>
+									<!--<tbody>-->
+									 <!--{% for obj in testsuit_test_case_list %}-->
 
-											<td>{{obj.rrt_utterance.rrt_audio.audio_path}}</td>
+										<!--<tr class="">-->
 
-											<td>{{obj.rrt_utterance.rrt_audio.speaker}}</td>
+											<!--<td><input type="checkbox" class="checkboxes" value="1" /></td>-->
 
-											<td class="center">{{obj.rrt_utterance.rrt_audio.gender}}</td>
+											<!--<td>{{obj.rrt_utterance.rrt_audio.audio_path}}</td>-->
 
-										    <td>{{obj.rrt_utterance.utterance}}</td>
+											<!--<td>{{obj.rrt_utterance.rrt_audio.speaker}}</td>-->
 
-											<td>{{obj.rrt_intent.intent_name}}</td>
+											<!--<td class="center">{{obj.rrt_utterance.rrt_audio.gender}}</td>-->
 
-											<td>{{obj.rrt_slot.slot_names}}</td>
+										    <!--<td>{{obj.rrt_utterance.utterance}}</td>-->
 
-											<td>{{obj.rrt_slot.slot_values}}</td>
+											<!--<td>{{obj.rrt_intent.intent_name}}</td>-->
 
-											<td><a class="delete" href="javascript:;">Delete</a></td>
+											<!--<td>{{obj.rrt_slot.slot_names}}</td>-->
 
-										</tr>
-									 {% endfor %}
+											<!--<td>{{obj.rrt_slot.slot_values}}</td>-->
 
-									</tbody>
+											<!--<td><a class="delete" href="javascript:;">Delete</a></td>-->
 
-								</table>
+										<!--</tr>-->
+									 <!--{% endfor %}-->
+
+									<!--</tbody>-->
+
+								<!--</table>-->
 
 									<div class="clearfix">
 

@@ -252,7 +252,7 @@
 								 <table class="table table-condensed" style="word-break:break-all; word-wrap:break-all" id="table" data-show-toggle="false" data-locale="en-US" data-minimum-count-columns="2"
                         data-id-field="id" data-show-footer="false" data-side-pagination="client" data-response-handler="responseHandler" data-row-style="rowStyle"
                         data-detail-view="false" data-detail-formatter="detailFormatter" data-toolbar="#toolbar"
-                        data-url={% url 'management:project_overview_detail_table' %}>
+                        data-url={% url 'management:project_overview_detail_table' project_name%}>
 
                         </table>
 
@@ -289,6 +289,61 @@
 						<!-- END EXAMPLE TABLE PORTLET-->
 
 					</div>
+					<div class="span2">
+
+						<!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+						<div class="portlet box blue">
+							<div class="portlet-title">
+
+								<div class="caption"><i class="icon-edit"></i>Filter</div>
+
+							</div>
+
+							<div class="portlet-body">
+                    <div class="control-group">
+                        <label style="width:75%" for="domain_selecter">Domain
+                            <select style="width:100%" class="select2" id="domain_selecter" multiple="multiple" data-ajax--cache="true">
+								{% for obj in domain_list %}
+								<option>{{obj}}</option>
+								{% endfor %}
+							</select>
+
+						</label>
+                    </div>
+
+                    <div class="control-group">
+                        <label style="width:75%" for="intent_selecter">Intent
+                            <select style="width:100%" class="select2" id="intent_selecter" multiple="multiple" data-ajax--cache="true">
+							</select>
+						</label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:75%" for="slot_selecter">Slot
+                            <select style="width:100%" class="select2" id="slot_selecter" multiple="multiple" data-ajax--cache="true"></select>
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:75%" for="start_date_selecter">Create Date
+                            <input type="date" class="form-control" id="start_date_selecter">
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:75%" for="end_date_selecter">Modify Date
+                            <input type="date" class="form-control" id="end_date_selecter">
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <button class="btn green" id="search_button">Search</button>
+                    </div>
+
+							</div>
+
+						</div>
+
+						<!-- END EXAMPLE TABLE PORTLET-->
+
+					</div>
 
 				</div>
 
@@ -306,6 +361,7 @@
 <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap-editable/js/bootstrap-editable.js"></script>
 <script src="/static/bootstrap-table/extensions/bootstrap-table-editable.js"></script>
+
 
 <script>
     jQuery(document).ready(function () {
@@ -471,5 +527,27 @@
             '</a>'
         ].join('');
     }
+
+        $("#domain_selecter").select2({
+        theme: "bootstrap",
+        ajax: {
+            cache: true,
+            delay: 250,
+            type: "get",
+            url: "/manage/get_all_domain/" ,
+            dataType: "json",
+            contentType: "application/json",
+            data: function (params) {
+                return {
+                    q: params.term,
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+        }
+    });
 
 </script>

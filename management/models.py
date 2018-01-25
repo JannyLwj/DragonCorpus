@@ -28,7 +28,9 @@ class rrt_audio(models.Model):
     audio_path = models.CharField('audio_path', max_length=255)
     speaker = models.CharField('speaker', max_length=255)
     gender = models.CharField('gender', max_length=255)
+    age=models.IntegerField('age',default=18)
     format = models.CharField('format', max_length=255,default=16*16)
+    language=models.CharField('language', max_length=255,default="CMN")
     create_time = models.DateTimeField('create_time', default=timezone.now)
 
     def __str__(self):
@@ -38,6 +40,8 @@ class rrt_audio(models.Model):
 class rrt_utterance(models.Model):
     utterance = models.CharField('utterance', max_length=255)
     audio_id = models.ForeignKey(rrt_audio)
+    source=models.CharField('source', max_length=255,default='QA')
+    dialog=models.CharField('dialog', max_length=255,default='default')
     gloable_priority = models.IntegerField('gloable_priority', default=0)
 
     def __str__(self):

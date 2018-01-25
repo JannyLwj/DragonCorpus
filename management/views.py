@@ -14,11 +14,8 @@ from django.shortcuts import render
 from django.urls import reverse
 
 # Create your views here.
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 
-from DragonCorpus.settings import BASE_DIR
 from management import models
 from management.Forms import New_Project_Form, New_Testsuit_Form
 from management.models import rrt_project, rrt_project_test_case, rrt_testsuit, rrt_slot, rrt_domain, rrt_audio, \
@@ -64,17 +61,22 @@ def project_overview_detail(request, project_id):
         Show status of testcase       """
     project_list = models.rrt_project.objects.all().order_by('-modify_time')[0:5]
     testsuit_list = models.rrt_testsuit.objects.all().order_by('-create_time')[0:5]
-    # project_test_case_list = rrt_project_test_case.objects.filter(project_id_id=project_id)
     project = rrt_project.objects.get(id=project_id)
     project_name = project.project_name
+
+    #domain_list=rrt_project_test_case.objects.filter(project_id=project_id).values('domain_id').distinct()
+
+    cursor = connection.cursor()
+    cursor.execute("select distinct d.domain_name from  "
+                   "management_rrt_project_test_case as tc "
+                   "join management_rrt_domain as d "
+                   "where project_id_id=%s" %project_id)
+    domain_list = cursor.fetchall()
 
     domain_list_count = rrt_project_test_case.objects.filter(project_id=project_id).values('domain_id').distinct().count()
     intent_list_count = rrt_project_test_case.objects.filter(project_id=project_id).values('intent_id').distinct().count()
     utterance_list_count = rrt_project_test_case.objects.filter(project_id=project_id).values('utterance_id').distinct().count()
     slot_list_count = rrt_project_test_case.objects.filter(project_id=project_id).values('slot_id').distinct().count()
-    #
-    # context = {'project_name': project_name, 'project_test_case_list': project_test_case_list,
-    #            'project_list': project_list, 'testsuit_list': testsuit_list}
 
     context = {'project_name': project_name,
                'project_list': project_list,
@@ -82,24 +84,24 @@ def project_overview_detail(request, project_id):
                'domain_list_count':domain_list_count,
                'intent_list_count':intent_list_count,
                'utterance_list_count':utterance_list_count,
-               'slot_list_count':slot_list_count}
+               'slot_list_count':slot_list_count,
+               'domain_list':domain_list
+              }
 
     return render(request, 'management/project_overview_detail.html', context)
 
 
-def project_overview_detail_table(request):
+def project_overview_detail_table(request,project_name):
     """
         Show all test case
         Show status of testcase       """
-    project_id = 1
+    project_id =rrt_project.objects.get(project_name=project_name).id
     startTimer = time.time()
 
     project_test_case_list_mid = rrt_project_test_case.objects.filter(project_id_id=project_id)
-    project = rrt_project.objects.get(id=project_id)
 
     project_test_case_list = project_test_case_list_mid.select_related("utterance_id", "domain_id","intent_id","slot_id", "utterance_id__audio_id")
-    audio_id_list = rrt_audio.objects.filter()
-    json_result_list = dict()
+
     project_test_output = list()
     for project_test in project_test_case_list:
         project_test_item = dict()
@@ -275,7 +277,7 @@ def utterance_table(request):
         Show all test case
         Show status of testcase       """
     cursor = connection.cursor()
-    cursor.execute("select p.project_name, ut.utterance "
+    cursor.execute("select p.project_name, ut.utterance, ut.dialog, ut.source, ut.gloable_priority "
                    "from management_rrt_project_test_case as tc "
                    "join management_rrt_project as p on tc.project_id_id=p.id "
                    "join management_rrt_utterance as ut on tc.utterance_id_id = ut.id;" )
@@ -284,7 +286,29 @@ def utterance_table(request):
     for utterance_test in utterance_list:
         utterance_test_item = dict()
         utterance_test_item["utterance"] = utterance_test[1]
+        utterance_test_item["dialog"] = utterance_test[2]
+        utterance_test_item["source"] = utterance_test[3]
+        utterance_test_item["priority"] = utterance_test[4]
         utterance_test_item["project"] = utterance_test[0]
         utterance_test_output.append(utterance_test_item)
     result = json.dumps(utterance_test_output)
+    return HttpResponse(result)
+
+def get_all_domain(request,project_name):
+    """
+    this is for Report feature
+    get all Language info, so admin can filter the work_set
+    :param request:
+    :return:
+    """
+    filter_char = request.GET.get('q')
+    project_id=rrt_project.objects.get(project_name=project_name)
+    domains = rrt_project_test_case.objects.filter(project_id=project_id).values('domain_id').distinct()
+    domain_list = list()
+    for domain in domains:
+        if not filter_char:
+            domain_dict = dict()
+            domain_dict['domain'] = domain.domain_name
+            domain_list.append(domain_dict)
+    result = json.dumps(domain_list)
     return HttpResponse(result)

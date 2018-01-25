@@ -176,6 +176,51 @@
 
 					</div>
 
+					<div class="span2">
+
+						<!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+						<div class="portlet box blue">
+							<div class="portlet-title">
+
+								<div class="caption"><i class="icon-edit"></i>Filter</div>
+
+							</div>
+
+							<div class="portlet-body">
+                    <div class="control-group">
+                        <label style="width:75%" for="user_selecter">Dialog
+                            <select style="width:100%" class="select2-multiples" id="user_selecter" multiple="multiple" data-ajax--cache="true"></select>
+                        </label>
+                    </div>
+
+                    <div class="control-group">
+                        <label style="width:75%" for="language_selecter">Source
+                            <select style="width:100%" class="select2-multiples" id="language_selecter" multiple="multiple" data-ajax--cache="true"></select>
+						</label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:75%" for="start_date_selecter">Create Date
+                            <input type="date" class="form-control" id="start_date_selecter">
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <label style="width:75%" for="end_date_selecter">Modify Date
+                            <input type="date" class="form-control" id="end_date_selecter">
+                        </label>
+                    </div>
+                    <div class="control-group">
+                        <button class="btn green" id="search_button">Search</button>
+                    </div>
+
+							</div>
+
+						</div>
+
+						<!-- END EXAMPLE TABLE PORTLET-->
+
+					</div>
+
 				</div>
 
 				<!-- END PAGE CONTENT -->
@@ -242,7 +287,31 @@
                         align: 'center',
                         valign: 'middle',
                         sortable: false,
-                        width: '45%'
+                        width: '30%'
+                    },
+                    {
+                        title: 'dialog',
+                        field: 'dialog',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '10%'
+                    },
+                    {
+                        title: 'source',
+                        field: 'source',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '10%'
+                    },
+                    {
+                        title: 'priority',
+                        field: 'priority',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: false,
+                        width: '5%'
                     },
                     {
                         title: 'project',
@@ -250,7 +319,7 @@
                         align: 'center',
                         valign: 'middle',
                         sortable: false,
-                        width: '45%'
+                        width: '40%'
                     }
                 ],
             ]

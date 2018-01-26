@@ -714,56 +714,6 @@ var Index = function () {
             $.cookie('intro_show', 1);
 
             setTimeout(function () {
-                var unique_id = $.gritter.add({
-                    // (string | mandatory) the heading of the notification
-                    title: 'Meet Metronic!',
-                    // (string | mandatory) the text inside the notification
-                    text: 'Metronic is a brand new Responsive Admin Dashboard Template you have always been looking for!',
-                    // (string | optional) the image to display on the left
-                    image: './assets/img/avatar1.jpg',
-                    // (bool | optional) if you want it to fade out on its own or just sit there
-                    sticky: true,
-                    // (int | optional) the time you want it to be alive for before fading out
-                    time: '',
-                    // (string | optional) the class name you want to apply to that specific message
-                    class_name: 'my-sticky-class'
-                });
-
-                // You can have it return a unique id, this can be used to manually remove it later using
-                setTimeout(function () {
-                    $.gritter.remove(unique_id, {
-                        fade: true,
-                        speed: 'slow'
-                    });
-                }, 12000);
-            }, 2000);
-
-            setTimeout(function () {
-                var unique_id = $.gritter.add({
-                    // (string | mandatory) the heading of the notification
-                    title: 'Buy Metronic!',
-                    // (string | mandatory) the text inside the notification
-                    text: 'Metronic comes with a huge collection of reusable and easy customizable UI components and plugins. Buy Metronic today!',
-                    // (string | optional) the image to display on the left
-                    image: './assets/img/avatar1.jpg',
-                    // (bool | optional) if you want it to fade out on its own or just sit there
-                    sticky: true,
-                    // (int | optional) the time you want it to be alive for before fading out
-                    time: '',
-                    // (string | optional) the class name you want to apply to that specific message
-                    class_name: 'my-sticky-class'
-                });
-
-                // You can have it return a unique id, this can be used to manually remove it later using
-                setTimeout(function () {
-                    $.gritter.remove(unique_id, {
-                        fade: true,
-                        speed: 'slow'
-                    });
-                }, 13000);
-            }, 8000);
-
-            setTimeout(function () {
 
                 $('#styler').pulsate({
                     color: "#bb3319",

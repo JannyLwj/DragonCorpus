@@ -120,53 +120,22 @@
 
 									</div>
 
-									<div class="btn-group pull-right">
-
-										<button class="btn dropdown-toggle" data-toggle="dropdown">Tools <i class="icon-angle-down"></i>
-
-										</button>
-
-										<ul class="dropdown-menu pull-right">
-
-											<li><a href="#">Print</a></li>
-
-											<li><a href="#">Save as PDF</a></li>
-
-											<li><a href="#">Export to Excel</a></li>
-
-										</ul>
-
-									</div>
 
 								</div>
 								<div class="clearfix">
 
+								<table class="table table-condensed" style="word-break:break-all; word-wrap:break-all" id="table" data-show-toggle="false" data-locale="en-US" data-minimum-count-columns="2"
+								data-id-field="id" data-show-footer="false" data-side-pagination="client" data-response-handler="responseHandler" data-row-style="rowStyle"
+								data-detail-view="false" data-detail-formatter="detailFormatter" data-toolbar="#toolbar"
+								data-url={% url 'management:utterance_table' %}>
 
+								</table>
 
-															 <table class="table table-condensed" style="word-break:break-all; word-wrap:break-all" id="table" data-show-toggle="false" data-locale="en-US" data-minimum-count-columns="2"
-                        data-id-field="id" data-show-footer="false" data-side-pagination="client" data-response-handler="responseHandler" data-row-style="rowStyle"
-                        data-detail-view="false" data-detail-formatter="detailFormatter" data-toolbar="#toolbar"
-                        data-url={% url 'management:utterance_table' %}>
-
-                        </table>
-
-
-									<div class="clearfix">
-
-									<div class="btn-group">
-
-										<button  class="btn green">
-
-										Delete <i class="icon-remove"></i>
-
-										</button>
-
-									</div>
-
+								<div class="clearfix">
 
 								</div>
 
-								</div>
+							</div>
 
 							</div>
 
@@ -176,49 +145,54 @@
 
 					</div>
 
-					<div class="span2">
-
+				    <div class="span2">
 						<!-- BEGIN EXAMPLE TABLE PORTLET-->
-
 						<div class="portlet box blue">
 							<div class="portlet-title">
-
 								<div class="caption"><i class="icon-edit"></i>Filter</div>
-
 							</div>
-
 							<div class="portlet-body">
-                    <div class="control-group">
-                        <label style="width:75%" for="user_selecter">Dialog
-                            <select style="width:100%" class="select2-multiples" id="user_selecter" multiple="multiple" data-ajax--cache="true"></select>
-                        </label>
-                    </div>
+								 <div class="control-group">
+									<label class="control-label">Project</label>
+									<div class="controls">
+										<select data-placeholder="Project" id="project_selecter" class="chosen span6" multiple="multiple" tabindex="6" data-ajax--cache="true">
 
-                    <div class="control-group">
-                        <label style="width:75%" for="language_selecter">Source
-                            <select style="width:100%" class="select2-multiples" id="language_selecter" multiple="multiple" data-ajax--cache="true"></select>
-						</label>
-                    </div>
-                    <div class="control-group">
-                        <label style="width:75%" for="start_date_selecter">Create Date
-                            <input type="date" class="form-control" id="start_date_selecter">
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <label style="width:75%" for="end_date_selecter">Modify Date
-                            <input type="date" class="form-control" id="end_date_selecter">
-                        </label>
-                    </div>
-                    <div class="control-group">
-                        <button class="btn green" id="search_button">Search</button>
-                    </div>
+											<option value="">project</option>
 
+										</select>
+									</div>
+								</div>
+								 <div class="control-group">
+									<label class="control-label">Dialog</label>
+									<div class="controls">
+										<select data-placeholder="Dialog" id="dialog_selecter" class="chosen span6" multiple="multiple" tabindex="6" data-ajax--cache="true">
+											<option value="">dialog</option>
+										</select>
+									</div>
+								</div>
+								 <div class="control-group">
+									<label class="control-label">Source</label>
+									<div class="controls">
+										<select data-placeholder="Source" id="source_selecter" class="chosen span6" multiple="multiple" tabindex="6" data-ajax--cache="true">
+											<option value="">source</option>
+										</select>
+									</div>
+								</div>
+								 <div class="control-group">
+									<label style="width:75%" for="start_date_selecter">Create Date
+										<input type="date" class="form-control" id="start_date_selecter">
+									</label>
+								</div>
+								<div class="control-group">
+									<label style="width:75%" for="end_date_selecter">Modify Date
+										<input type="date" class="form-control" id="end_date_selecter">
+									</label>
+								</div>
+								<div class="control-group">
+									<button class="btn green" id="search_button">Search</button>
+								</div>
 							</div>
-
 						</div>
-
-						<!-- END EXAMPLE TABLE PORTLET-->
-
 					</div>
 
 				</div>
@@ -229,7 +203,7 @@
 
 			<!-- END PAGE CONTAINER-->
 
-		</div>
+</div>
 
 
 <script src="/static/media/js/jquery-1.10.1.min.js" type="text/javascript"></script>

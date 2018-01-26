@@ -26,6 +26,7 @@
   margin-bottom: 0;
   vertical-align: middle;
   cursor: text;
+  width: 500px;
 }
 
 .fileupload .thumbnail {

@@ -64,14 +64,18 @@ def project_overview_detail(request, project_id):
     project = rrt_project.objects.get(id=project_id)
     project_name = project.project_name
 
-    #domain_list=rrt_project_test_case.objects.filter(project_id=project_id).values('domain_id').distinct()
-
     cursor = connection.cursor()
-    cursor.execute("select distinct d.domain_name from  "
+    cursor.execute("select distinct d.id,d.domain_name from  "
                    "management_rrt_project_test_case as tc "
                    "join management_rrt_domain as d "
                    "where project_id_id=%s" %project_id)
     domain_list = cursor.fetchall()
+    domain_result_lilst = list()
+    for domain in domain_list:
+        domain_dict = dict()
+        domain_dict['id'] = domain[0]
+        domain_dict['value'] = domain[1]
+        domain_result_lilst.append(domain_dict)
 
     domain_list_count = rrt_project_test_case.objects.filter(project_id=project_id).values('domain_id').distinct().count()
     intent_list_count = rrt_project_test_case.objects.filter(project_id=project_id).values('intent_id').distinct().count()
@@ -85,7 +89,7 @@ def project_overview_detail(request, project_id):
                'intent_list_count':intent_list_count,
                'utterance_list_count':utterance_list_count,
                'slot_list_count':slot_list_count,
-               'domain_list':domain_list
+               'domain_list':domain_result_lilst
               }
 
     return render(request, 'management/project_overview_detail.html', context)
@@ -294,21 +298,22 @@ def utterance_table(request):
     result = json.dumps(utterance_test_output)
     return HttpResponse(result)
 
-def get_all_domain(request,project_name):
+def get_all_intent(request):
     """
     this is for Report feature
     get all Language info, so admin can filter the work_set
     :param request:
     :return:
     """
-    filter_char = request.GET.get('q')
+    filter_domain = request.GET.get('filter_domain')
+    project_name=request.data
+    #找到domain_id
     project_id=rrt_project.objects.get(project_name=project_name)
-    domains = rrt_project_test_case.objects.filter(project_id=project_id).values('domain_id').distinct()
-    domain_list = list()
-    for domain in domains:
-        if not filter_char:
-            domain_dict = dict()
-            domain_dict['domain'] = domain.domain_name
-            domain_list.append(domain_dict)
-    result = json.dumps(domain_list)
+    intent_list = rrt_project_test_case.objects.filter(project_id=project_id,domain_id_range = filter_domain).values('intent_id').distinct()
+    return_intent_list = list()
+    for intent in intent_list:
+        intent_dict = dict()
+        intent_dict['intent_list'] = intent.intent_name
+        return_intent_list.append(intent_dict)
+    result = json.dumps(return_intent_list)
     return HttpResponse(result)

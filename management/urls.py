@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^utterance/$', views.utterance, name='utterance'),
 
     #filter
-    url(r'^(?P<project_name>\w+)/get_all_domain/$', views.get_all_domain, name='get_all_domain'),
+    url(r'^(?P<project_name>\w+)/get_all_intent/$', views.get_all_intent, name='get_all_intent'),
 ]

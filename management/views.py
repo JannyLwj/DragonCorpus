@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 import json
+import os
+
 from django.db import connection
 from audioop import reverse
 
@@ -14,6 +16,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 
 from management import models
@@ -172,69 +175,69 @@ def new_project(request):
         return render(request, 'management/new_project.html', context)
 
     elif request.method == 'POST':
-        # hrl_path_folder = r"D:\database\FullTest1"
-        # for file in os.listdir(hrl_path_folder):
-        #     hrl_file = os.path.join(hrl_path_folder, file)
-        #     domain = file.split(".")[0]
-        #     hrl_file_process = open(hrl_file, 'r')
-        #     for line in hrl_file_process:
-        #         if ".pcm" in line:
-        #             line_string = line.strip().split("#")
-        #             audio = line_string[1]
-        #             speaker = line_string[2]
-        #             gender = line_string[3]
-        #             utterance = line_string[4]
-        #             intent = line_string[5]
-        #             try:
-        #                 if len(line_string) > 6:
-        #                     slot_names = line_string[6]
-        #                     slot_values = line_string[7]
-        #                 else:
-        #                     slot_names = ""
-        #                     slot_values = ""
-        #             except:
-        #                 slot_names = ""
-        #                 slot_values = ""
-        #
-        #             domain_list = models.rrt_domain.objects.filter(domain_name=domain)
-        #             if len(domain_list) < 1:
-        #                 domain_item = rrt_domain(domain_name=domain)
-        #                 domain_item.save()
-        #
-        #             intent_list = models.rrt_intent.objects.filter(intent_name=intent)
-        #             if len(intent_list) < 1:
-        #                 intent_item = rrt_intent(intent_name=intent)
-        #                 intent_item.save()
-        #
-        #             slot_list = models.rrt_slot.objects.filter(slot_names=slot_names, slot_values=slot_values)
-        #             if len(slot_list) < 1:
-        #                 slot_item = rrt_slot(slot_names=slot_names, slot_values=slot_values)
-        #                 slot_item.save()
-        #
-        #             audio_list = models.rrt_audio.objects.filter(audio_path=audio)
-        #             if len(audio_list) < 1:
-        #                 audio_item = rrt_audio(audio_path=audio, speaker=speaker, gender=gender)
-        #                 audio_item.save()
-        #
-        #             audio_id = rrt_audio.objects.get(audio_path=audio)
-        #
-        #             utterance_list = models.rrt_utterance.objects.filter(utterance=utterance)
-        #             if len(utterance_list) < 1:
-        #                 utterance_item = rrt_utterance(utterance=utterance, audio_id=audio_id)
-        #                 utterance_item.save()
-        #
-        #             domain_id = models.rrt_domain.objects.get(domain_name=domain)
-        #             intent_id = rrt_intent.objects.get(intent_name=intent)
-        #             utterance_id = rrt_utterance.objects.get(utterance=utterance)
-        #             slot_id = rrt_slot.objects.get(slot_names=slot_names, slot_values=slot_values)
-        #             project_id = rrt_project.objects.get(project_name="EcarX")
-        #
-        #             case_list = models.rrt_project_test_case.objects.filter(project_id=project_id, domain_id=domain_id,
-        #                                               utterance_id=utterance_id, intent_id=intent_id, slot_id=slot_id)
-        #             if len(case_list)<1:
-        #                 case_item = rrt_project_test_case(project_id=project_id, domain_id=domain_id,
-        #                                                   utterance_id=utterance_id, intent_id=intent_id, slot_id=slot_id)
-        #                 case_item.save()
+        hrl_path_folder = r"D:\database\FullTest1"
+        for file in os.listdir(hrl_path_folder):
+            hrl_file = os.path.join(hrl_path_folder, file)
+            domain = file.split(".")[0]
+            hrl_file_process = open(hrl_file, 'r')
+            for line in hrl_file_process:
+                if ".pcm" in line:
+                    line_string = line.strip().split("#")
+                    audio = line_string[1]
+                    speaker = line_string[2]
+                    gender = line_string[3]
+                    utterance = line_string[4]
+                    intent = line_string[5]
+                    try:
+                        if len(line_string) > 6:
+                            slot_names = line_string[6]
+                            slot_values = line_string[7]
+                        else:
+                            slot_names = ""
+                            slot_values = ""
+                    except:
+                        slot_names = ""
+                        slot_values = ""
+
+                    domain_list = models.rrt_domain.objects.filter(domain_name=domain)
+                    if len(domain_list) < 1:
+                        domain_item = rrt_domain(domain_name=domain)
+                        domain_item.save()
+
+                    intent_list = models.rrt_intent.objects.filter(intent_name=intent)
+                    if len(intent_list) < 1:
+                        intent_item = rrt_intent(intent_name=intent)
+                        intent_item.save()
+
+                    slot_list = models.rrt_slot.objects.filter(slot_names=slot_names, slot_values=slot_values)
+                    if len(slot_list) < 1:
+                        slot_item = rrt_slot(slot_names=slot_names, slot_values=slot_values)
+                        slot_item.save()
+
+                    audio_list = models.rrt_audio.objects.filter(audio_path=audio)
+                    if len(audio_list) < 1:
+                        audio_item = rrt_audio(audio_path=audio, speaker=speaker, gender=gender)
+                        audio_item.save()
+
+                    audio_id = rrt_audio.objects.get(audio_path=audio)
+
+                    utterance_list = models.rrt_utterance.objects.filter(utterance=utterance)
+                    if len(utterance_list) < 1:
+                        utterance_item = rrt_utterance(utterance=utterance, audio_id=audio_id)
+                        utterance_item.save()
+
+                    domain_id = models.rrt_domain.objects.get(domain_name=domain)
+                    intent_id = rrt_intent.objects.get(intent_name=intent)
+                    utterance_id = rrt_utterance.objects.get(utterance=utterance)
+                    slot_id = rrt_slot.objects.get(slot_names=slot_names, slot_values=slot_values)
+                    project_id = rrt_project.objects.get(project_name="EcarX")
+
+                    case_list = models.rrt_project_test_case.objects.filter(project_id=project_id, domain_id=domain_id,
+                                                      utterance_id=utterance_id, intent_id=intent_id, slot_id=slot_id)
+                    if len(case_list)<1:
+                        case_item = rrt_project_test_case(project_id=project_id, domain_id=domain_id,
+                                                          utterance_id=utterance_id, intent_id=intent_id, slot_id=slot_id)
+                        case_item.save()
 
         form = New_Project_Form(request.POST)
         if form.is_valid():
@@ -386,3 +389,11 @@ def table_refresh(request):
     result = json.dumps(testcase_list_item)
 
     HttpResponse(result)
+
+@csrf_exempt
+def upload_hrl(request):
+    file=request.FILES.get('file')
+    with open("tmp.rar", 'w') as write_file:
+        for chunk in file.chunks():
+            write_file.write(chunk)
+    print request

@@ -50,8 +50,8 @@ class rrt_utterance(models.Model):
 
 class rrt_intent(models.Model):
     intent_name = models.CharField('intent_name', max_length=255)
-    max_select_utterance = models.IntegerField('max_select_utterance', default=5)
-    min_select_utterance = models.IntegerField('min_select_utterance', default=1)
+    default_select_utterance = models.IntegerField('max_select_utterance', default=10)
+    intent_priority = models.IntegerField('min_select_utterance', default=1)
 
     def __str__(self):
         return self.intent_name

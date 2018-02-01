@@ -259,37 +259,14 @@
 
 										<div class="controls">
 
-											<div class="fileupload fileupload-new" data-provides="fileupload">
-
-												<div class="input-append">
-
-													<div class="uneditable-input">
-
-														<i class="icon-file fileupload-exists"></i>
-
-														<span class="fileupload-preview"></span>
-
-													</div>
-
-													<span class="btn green btn-file">
-
-													<span class="fileupload-new">Import from HRL<i class="icon-folder-open"></i></span>
-
-													<span class="fileupload-exists">Change<i class="icon-folder-open"></i></span>
-
-													<input type="file" class="default" />
-
-													</span>
-
-													<a href="#" class="btn blue fileupload-exists" data-dismiss="fileupload">Remove<i class="icon-remove"></i></a>
-
-												</div>
-
-											</div>
+											<form class="form-control" enctype="multipart/form-data">
+												{% csrf_token %}
+												<input type="file" name="file" id="file" />
+											</form>
 
 											<div class="btn-group">
 
-													<button  class="btn green">
+													<button  id="upload" class="btn green">
 
 													Upload <i class="icon-upload"></i>
 
@@ -393,6 +370,7 @@
 
     $button = $('#button');
     $search_button=$('#search_button');
+	$uploadfile = $("#file");
 
     $(function () {
          $button.click(function () {
@@ -622,5 +600,26 @@
 		  $table.bootstrapTable('refresh');
 	 });
 
+
+
+	$("#upload").click(function () {
+		var fileObj =$("#file")[0].files[0]
+		var formData = new FormData();
+		formData.append('file', fileObj)
+		 $.ajax({
+			url: "/management/upload_hrl/",
+			type: "post",
+			contentType: false,
+			processData: false,
+			cache: false,
+			data: formData,
+			success: function (data) {
+				alert("sucess！");
+			},
+			error: function (msg) {
+				alert("出错了！");
+			}
+	 	})
+	});
 
 </script>

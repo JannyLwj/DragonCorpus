@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^new_project/$',views.new_project,name='new_project'),
     url(r'^new_testsuit/$',views.new_testsuit,name='new_testsuit'),
     url(r'^utterance/$', views.utterance, name='utterance'),
-
+    url(r'^upload_hrl/$', views.upload_hrl, name='upload_hrl'),
     #filter
     url(r'^get_all_intent/$', views.get_all_intent, name='get_all_intent'),
     url(r'^table_refresh/$', views.table_refresh, name='table_refresh'),

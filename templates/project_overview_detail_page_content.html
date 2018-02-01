@@ -214,7 +214,7 @@
 				<div class="row-fluid">
 
 
-					<div class="span10">
+					<div class="span9">
 
 						<!-- BEGIN EXAMPLE TABLE PORTLET-->
 
@@ -250,8 +250,7 @@
 									</div>
 								 <table class="table table-condensed" style="word-break:break-all; word-wrap:break-all" id="table" data-show-toggle="false" data-locale="en-US" data-minimum-count-columns="2"
 									data-id-field="id" data-show-footer="false" data-side-pagination="client" data-response-handler="responseHandler" data-row-style="rowStyle"
-									data-detail-view="false" data-detail-formatter="detailFormatter" data-toolbar="#toolbar"
-									data-url={% url 'management:project_overview_detail_table' project_name%}>
+									data-detail-view="false" data-detail-formatter="detailFormatter" data-toolbar="#toolbar">
                        			 </table>
 
 								<div class="clearfix">
@@ -321,7 +320,7 @@
 						<!-- END EXAMPLE TABLE PORTLET-->
 
 					</div>
-					<div class="span2">
+					<div class="span3">
 						<!-- BEGIN EXAMPLE TABLE PORTLET-->
 						<div class="portlet box blue">
 							<div class="portlet-title">
@@ -331,9 +330,9 @@
 								 <div class="control-group">
 									<label class="control-label">Domain</label>
 									<div class="controls">
-										<select data-placeholder="Domain" onchange="addItems()" id="domain_selecter" class="chosen span6" multiple="multiple" tabindex="6" data-ajax--cache="true">
+										<select data-placeholder="Domain" onchange="addItems()" id="domain_selecter" class="chosen span12" multiple="multiple" tabindex="6" data-ajax--cache="true">
 											{%for obj in domain_list%}
-											<option value="{{obj.id}}">{{obj.value}}</option>
+											<option value="{{obj.id}}">{{obj.domain_name}}</option>
 											{%endfor%}
 										</select>
 									</div>
@@ -341,26 +340,18 @@
 								 <div class="control-group">
 									<label class="control-label">Intent</label>
 									<div class="controls">
-										<select data-placeholder="Intent" id="intent_selecter" class="chosen span6" multiple="multiple" tabindex="6" data-ajax--cache="true">
-											<option value="">intent</option>
+										<select data-placeholder="Intent" onchange="addIntent()" id="intent_selecter" class="chosen span12" multiple="multiple" tabindex="6" data-ajax--cache="true">
+
 										</select>
 									</div>
 								</div>
 								 <div class="control-group">
-									<label class="control-label">Slot</label>
-									<div class="controls">
-										<select data-placeholder="Slot" id="slot_selecter" class="chosen span6" multiple="multiple" tabindex="6" data-ajax--cache="true">
-											<option value="">slot</option>
-										</select>
-									</div>
-								</div>
-								 <div class="control-group">
-									<label style="width:75%" for="start_date_selecter">Create Date
+									<label style="width:75%" for="start_date_selecter">Create Date<br>
 										<input type="date" class="form-control" id="start_date_selecter">
 									</label>
 								</div>
 								<div class="control-group">
-									<label style="width:75%" for="end_date_selecter">Modify Date
+									<label style="width:75%" for="end_date_selecter">Modify Date<br>
 										<input type="date" class="form-control" id="end_date_selecter">
 									</label>
 								</div>
@@ -393,18 +384,20 @@
 <script>
     jQuery(document).ready(function () {
         initTable();
-
     });
 
     var $table = $('#table'),
-        selections = [];
-    var $project_name_a = $("#project_name_a").innerText
+        <!--selections = [];-->
+
+    <!--var $project_name_a = $("#project_name_a").innerText-->
 
     $button = $('#button');
+    $search_button=$('#search_button');
 
     $(function () {
          $button.click(function () {
              $table.bootstrapTable('insertRow', {
+
                  index: 0,
                  row: {
                      utterance: '',
@@ -419,7 +412,35 @@
      });
 
     function initTable() {
+
         $table.bootstrapTable({
+			method: 'get',
+			url:"/management/project_overview_detail_table/",
+
+			queryParams: function (params) {
+				var $domain_selects = $("#domain_selecter")[0]
+				var $domain_id_list = ""
+				for (var i=0;i< $domain_selects.length;i++){
+					if($domain_selects[i].selected){
+						$domain_id_list += $domain_selects[i].value + ","
+					}
+				}
+
+				var $intent_selects = $("#intent_selecter")[0]
+				var $intent_id_list = ""
+				for (var i=0;i< $intent_selects.length;i++){
+					if($intent_selects[i].selected){
+						$intent_id_list += $intent_selects[i].value + ","
+					}
+				}
+
+				return {
+				   project_name: project_name_a.innerText,
+				   domain_list: $domain_id_list,
+				   intent_list: $intent_id_list
+				};
+			},
+			dataType : 'JSON',
             height: getHeight(),
             pagination: true,
 			pageNumber: 1,
@@ -428,8 +449,6 @@
 			search: true,
 			sortable: true,
             sortOrder: "asc",
-			<!--strictSearch: true,-->
-			<!--showPaginationSwitch:true,-->
             columns: [
                 [{
                     checkbox: true,
@@ -539,6 +558,7 @@
         });
         return html.join('');
     }
+
     window.operateEvents = {
         'click .like': function (e, value, row, index) {
             alert('You click like action, row: ' + JSON.stringify(row));
@@ -558,28 +578,49 @@
 
 
 	function addItems() {
-		alert('bcd');
-            $.ajax({
-                url: "/management/get_all_intent/",
-                type: "post",
-                dataType: "json",
-                contentType: "application/json",
-                traditional: true,
-                success: function (data) {
-                    for (var i in data) {
-                        var jsonObj =data[i];
-                        var optionstring = "";
-                        for (var j = 0; j < jsonObj.length; j++) {
-                            optionstring += "<option value=\"" + jsonObj[j].ID + "\" >" + jsonObj[j].chinesename + "</option>";
-                        }
-                        $("#dpdField1").html("<option value='请选择'>请选择...</option> "+optionstring);
-                    }
-                },
-                error: function (msg) {
-                    alert("出错了！");
-                }
-            });
-        };
+		<!--alert('bcd');-->
+		var $domain_selects = $("#domain_selecter")[0]
+		var $domain_id_list = ""
+		for (var i=0;i< $domain_selects.length;i++){
+			if($domain_selects[i].selected){
+				$domain_id_list += $domain_selects[i].value + ","
+			}
+		}
+		$.ajax({
+			url: "/management/get_all_intent/",
+			type: "get",
+			dataType: "json",
+			contentType: "application/json",
+			traditional: true,
+			data: {
+			 project_name: project_name_a.innerText,
+			 domain_id: $domain_id_list
+			},
+			success: function (data) {
+				var optionstring = "";
+				var listring="";
+				$('#intent_selecter').html("")
+				$("#intent_selecter").trigger("liszt:updated");
+				for (var i in data) {
+					var jsonObj =data[i];
+					$('#intent_selecter').multiSelect('addOption', { value:jsonObj.id, text:jsonObj.intent_name});
+					$("#intent_selecter").trigger("liszt:updated");
+				}
+			},
+			error: function (msg) {
+				alert("出错了！");
+			}
+		});
+		$table.bootstrapTable('refresh');
+	};
+
+	function addIntent() {
+		$table.bootstrapTable('refresh');
+	}
+
+	 $search_button.click(function () {
+		  $table.bootstrapTable('refresh');
+	 });
 
 
 </script>

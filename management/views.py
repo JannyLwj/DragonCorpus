@@ -74,7 +74,7 @@ def project_overview_detail(request, project_id):
     for domain in domain_list:
         domain_dict = dict()
         domain_dict['id'] = domain[0]
-        domain_dict['value'] = domain[1]
+        domain_dict['domain_name'] = domain[1]
         domain_result_lilst.append(domain_dict)
 
     domain_list_count = rrt_project_test_case.objects.filter(project_id=project_id).values('domain_id').distinct().count()
@@ -95,14 +95,36 @@ def project_overview_detail(request, project_id):
     return render(request, 'management/project_overview_detail.html', context)
 
 
-def project_overview_detail_table(request,project_name):
+def project_overview_detail_table(request):
     """
         Show all test case
         Show status of testcase       """
+    project_name=request.GET.get('project_name')
+    filter_domain=request.GET.get('domain_list')[:-1].strip()
+    filter_intent=request.GET.get('intent_list')[:-1].strip()
+
+    domain_item = filter_domain.split(',')
+    domain_string = list()
+    for item in domain_item:
+        if item:
+            domain_string.append(int(item.encode('ascii')))
+
+    intent_item = filter_intent.split(',')
+    intent_string = list()
+    for item in intent_item:
+        if item:
+            intent_string.append(int(item.encode('ascii')))
+
     project_id =rrt_project.objects.get(project_name=project_name).id
     startTimer = time.time()
 
-    project_test_case_list_mid = rrt_project_test_case.objects.filter(project_id_id=project_id)
+    if domain_string and intent_string:
+        project_test_case_list_mid = rrt_project_test_case.objects.filter(project_id=project_id,domain_id__in=domain_string,intent_id__in=intent_string)
+    elif domain_string and len(intent_string)<1:
+        project_test_case_list_mid = rrt_project_test_case.objects.filter(project_id=project_id,domain_id__in=domain_string)
+    else:
+        project_test_case_list_mid = rrt_project_test_case.objects.filter(project_id_id=project_id)
+
 
     project_test_case_list = project_test_case_list_mid.select_related("utterance_id", "domain_id","intent_id","slot_id", "utterance_id__audio_id")
 
@@ -305,15 +327,62 @@ def get_all_intent(request):
     :param request:
     :return:
     """
-    filter_domain = request.GET.get('filter_domain')
-    project_name=request.data
-    #找到domain_id
-    project_id=rrt_project.objects.get(project_name=project_name)
-    intent_list = rrt_project_test_case.objects.filter(project_id=project_id,domain_id_range = filter_domain).values('intent_id').distinct()
-    return_intent_list = list()
-    for intent in intent_list:
-        intent_dict = dict()
-        intent_dict['intent_list'] = intent.intent_name
-        return_intent_list.append(intent_dict)
-    result = json.dumps(return_intent_list)
+    filter_domain = request.GET.get('domain_id')
+
+    domain_item = filter_domain.split(',')
+    domain_string = list()
+    for item in domain_item:
+        if item:
+            domain_string.append(int(item.encode('ascii')))
+
+    if domain_string:
+        project_name = request.GET.get('project_name')
+        #找到domain_id
+        project_id=rrt_project.objects.get(project_name=project_name).id
+
+        project_test_case_list_mid = rrt_project_test_case.objects.filter(project_id=project_id,domain_id__in=domain_string)
+        project_test_case_list = project_test_case_list_mid.select_related( "intent_id")
+
+        project_test_output = list()
+        for project_test in project_test_case_list:
+            project_test_item = dict()
+            project_test_item["id"] = project_test.intent_id.id
+            project_test_item["intent_name"] = project_test.intent_id.intent_name
+            if project_test_item not in project_test_output:
+                project_test_output.append(project_test_item)
+        result = json.dumps(project_test_output)
+    else:
+        result=""
     return HttpResponse(result)
+
+def table_refresh(request):
+    filter_domain = request.GET.get('domain_id_list')[:-1]
+    domain_item=filter_domain.split(',')
+    domain_string=[]
+    for item in domain_item:
+        domain_string.append(item)
+
+    filter_intent=request.GET.get('intent_id_list')[:-1]
+    intent_item=filter_intent.split(',')
+    intent_string=[]
+    for item in intent_item:
+        intent_string.append(item)
+
+
+    project_name = request.GET.get('project_name')
+    project_id = rrt_project.objects.get(project_name=project_name).id
+
+    test_case_list = rrt_project_test_case.objects.filter(project_id=project_id, domain_id = domain_string, intent_id= intent_string )
+    testcase_list_item = list()
+    for case in test_case_list:
+        case_dict = dict()
+        testcase_list_item["utterance"] = case.utterance_id.utterance
+        testcase_list_item["audio"] = case.utterance_id.audio_id.audio_path
+        testcase_list_item["domain"] = case.domain_id.domain_name
+        testcase_list_item["intent"] = case.intent_id.intent_name
+        testcase_list_item["slotnames"] = case.slot_id.slot_names
+        testcase_list_item["slotvalues"] = case.slot_id.slot_values
+        testcase_list_item.append(case_dict)
+    result = json.dumps(testcase_list_item)
+
+    HttpResponse(result)

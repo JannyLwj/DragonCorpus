@@ -13,5 +13,4 @@ urlpatterns = [
     url(r'^upload_hrl/$', views.upload_hrl, name='upload_hrl'),
     #filter
     url(r'^get_all_intent/$', views.get_all_intent, name='get_all_intent'),
-    url(r'^table_refresh/$', views.table_refresh, name='table_refresh'),
 ]

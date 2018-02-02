@@ -256,12 +256,38 @@
 								<div class="clearfix">
 
 								<div class="control-group">
-
 										<div class="controls">
-
 											<form class="form-control" enctype="multipart/form-data">
 												{% csrf_token %}
-												<input type="file" name="file" id="file" />
+											<div class="fileupload fileupload-new" data-provides="fileupload">
+
+												<div class="input-append">
+
+													<div class="uneditable-input">
+
+														<i class="icon-file fileupload-exists"></i>
+
+														<span class="fileupload-preview"></span>
+
+													</div>
+
+													<span class="btn btn-file btn green">
+
+													<span class="fileupload-new">Select file</span>
+
+													<span class="fileupload-exists">Change</span>
+
+													<input type="file"  name="file" id="file" />
+
+													</span>
+
+													<a href="#" class="btn blue fileupload-exists" data-dismiss="fileupload">Remove</a>
+
+												</div>
+
+											</div>
+                                             <div>Please upload your hrl and audio file, the format is ".zip" or ".rar".</div>
+
 											</form>
 
 											<div class="btn-group">

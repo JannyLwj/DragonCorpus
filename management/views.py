@@ -136,6 +136,7 @@ def project_overview_detail_table(request):
     project_test_output = list()
     for project_test in project_test_case_list:
         project_test_item = dict()
+        project_test_item["id"] = project_test.id
         project_test_item["utterance"] = project_test.utterance_id.utterance
         project_test_item["audio"] = project_test.utterance_id.audio_id.audio_path
         project_test_item["domain"] = project_test.domain_id.domain_name

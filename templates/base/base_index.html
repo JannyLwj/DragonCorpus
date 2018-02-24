@@ -1,0 +1,30 @@
+<!--{% load staticfiles %}-->
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+	        {% include 'base/header.html' %}
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-sidebar-closed">
+	<!-- BEGIN HEADER -->
+	{% include 'base/navi.html' %}
+	<!-- END HEADER -->
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container">
+		<!-- BEGIN SIDEBAR -->
+		{% include 'base/page_sidebar.html' %}
+		<!-- END SIDEBAR -->
+		<!-- BEGIN PAGE -->
+		 {% block content %}{% endblock %}
+		<!-- END PAGE -->
+	</div>
+	<!-- END CONTAINER -->
+	<!-- BEGIN FOOTER -->
+	        {% include 'base/footer.html' %}
+	<!-- END FOOTER -->
+	 {% include 'base/index_js.html' %}
+</body>
+<!-- END BODY -->
+</html>

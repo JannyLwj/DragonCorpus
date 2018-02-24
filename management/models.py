@@ -24,28 +24,28 @@ class rrt_domain(models.Model):
         return self.domain_name
 
 
-class rrt_audio(models.Model):
-    audio_path = models.CharField('audio_path', max_length=255)
-    speaker = models.CharField('speaker', max_length=255)
-    gender = models.CharField('gender', max_length=255)
-    age=models.IntegerField('age',default=18)
-    format = models.CharField('format', max_length=255,default=16*16)
-    language=models.CharField('language', max_length=255,default="CMN")
-    create_time = models.DateTimeField('create_time', default=timezone.now)
-
-    def __str__(self):
-        return self.audio_path
-
-
 class rrt_utterance(models.Model):
     utterance = models.CharField('utterance', max_length=255)
-    audio_id = models.ForeignKey(rrt_audio)
     source=models.CharField('source', max_length=255,default='QA')
     dialog=models.CharField('dialog', max_length=255,default='default')
     gloable_priority = models.IntegerField('gloable_priority', default=0)
 
     def __str__(self):
         return self.utterance
+
+class rrt_audio(models.Model):
+    audio_path = models.CharField('audio_path', max_length=255)
+    audio_hrl_path=models.CharField('audio_hrl_path', max_length=255)
+    speaker = models.CharField('speaker', max_length=255)
+    gender = models.CharField('gender', max_length=255)
+    age=models.IntegerField('age',default=18)
+    utterance_id = models.ForeignKey(rrt_utterance)
+    format = models.CharField('format', max_length=255,default=16*16)
+    language=models.CharField('language', max_length=255,default="CMN")
+    create_time = models.DateTimeField('create_time', default=timezone.now)
+
+    def __str__(self):
+        return self.audio_path
 
 
 class rrt_intent(models.Model):
@@ -78,12 +78,17 @@ class rrt_project_test_case(models.Model):
     select_times = models.IntegerField('select_times', default=0)
     select_flag = models.BooleanField('select flag', default=False)
     # ForeignKey
-    testsuit_id = models.ForeignKey(rrt_testsuit,null=True)
     project_id = models.ForeignKey(rrt_project)
     domain_id = models.ForeignKey(rrt_domain)
     utterance_id = models.ForeignKey(rrt_utterance)
+    audio_id = models.ForeignKey(rrt_audio)
     intent_id = models.ForeignKey(rrt_intent)
     slot_id=models.ForeignKey(rrt_slot)
+
+
+class rrt_testsuit_testcase(models.Model):
+    testsuit_id=models.ForeignKey(rrt_testsuit)
+    testcase_id = models.ForeignKey(rrt_project_test_case)
 
 
 class rrt_baseline_test_case(models.Model):
@@ -105,6 +110,3 @@ class rrt_project_running_test_case(models.Model):
     testsuit_id = models.ForeignKey(rrt_testsuit)
 
 
-class rrt_account(models.Model):
-    user_name = models.CharField('user_name', max_length=255)
-    user_password = models.CharField('user_password', max_length=255)

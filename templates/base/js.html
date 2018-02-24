@@ -6,7 +6,7 @@
 
 	<script src="/static/media/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
 
-	<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+	<!-- IMPORTANT! Load jquery-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 
 	<script src="/static/media/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 
@@ -19,14 +19,6 @@
 	<script src="/static/media/js/respond.min.js"></script>
 
 	<![endif]-->
-
-	<script src="/static/media/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-
-	<script src="/static/media/js/jquery.blockui.min.js" type="text/javascript"></script>
-
-	<script src="/static/media/js/jquery.cookie.min.js" type="text/javascript"></script>
-
-	<script src="/static/media/js/jquery.uniform.min.js" type="text/javascript" ></script>
 
 	<!-- END CORE PLUGINS -->
 
@@ -70,37 +62,21 @@
 
 	<script type="text/javascript" src="/static/media/js/jquery.multi-select.js"></script>
 
-	<script type="text/javascript" src="/static/media/js/jquery.dataTables.js"></script>
-
-	<script type="text/javascript" src="/static/media/js/DT_bootstrap.js"></script>
-
-	<script type="text/javascript" src="/static/media/js/bootstrap-datepicker.js"></script>
-
-	<script type="text/javascript" src="/static/media/js/bootstrap-datetimepicker.js"></script>
-
-	<script type="text/javascript" src="/static/media/js/clockface.js"></script>
-
 	<script type="text/javascript" src="/static/media/js/bootstrap-fileupload.js"></script>
+
+    <script src="/static/media/js/bootstrap-tree.js"></script>
 
 	<!-- END PAGE LEVEL PLUGINS -->
 
 	<!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="/static/media/js/app.js"></script>
 
 	<script src="/static/media/js/app.js" type="text/javascript"></script>
 
 	<script src="/static/media/js/index.js" type="text/javascript"></script>
 
-    <script src="/static/media/js/table-managed.js"></script>
-
 	<script src="/static/bootstrap-table/bootstrap-table.js"></script>
 
-	<script src="/static/media/js/jquery.iframe-transport.js"></script>
-
-	<!--<script src="/static/media/js/jquery.fileupload.js"></script>-->
-
-	<!--<script src="/static/media/js/jquery.fileupload-fp.js"></script>-->
-
-	<!--<script src="/static/media/js/jquery.fileupload-ui.js"></script>-->
 
 	<!-- END PAGE LEVEL SCRIPTS -->
 
@@ -125,6 +101,8 @@
 		   Index.initDashboardDaterange();
 
 		   Index.initIntro();
+
+		   UITree.init();
 
 		});
 

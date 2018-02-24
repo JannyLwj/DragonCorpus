@@ -52,7 +52,7 @@
 
 								<i class="icon-home"></i>
 
-								<a href="index.html">Home</a>
+								<a href="{% url 'management:index'%}">Home</a>
 
 								<span class="icon-angle-right"></span>
 
@@ -110,6 +110,7 @@
 
 									<div class="tab-content">
 
+										{%if user.email%}
 										<div class="tab-pane active" id="portlet_tab1">
 
 											<!-- BEGIN FORM-->
@@ -124,7 +125,6 @@
 
 														<input id="project_name" name="project_name" type="text" placeholder="please input your project name" class="m-wrap large" />
 
-														<span class="help-inline">Please input your project name</span>
 
 													</div>
 
@@ -147,7 +147,7 @@
 
 													<button type="submit" class="btn blue"><i class="icon-ok"></i> Save</button>
 
-													<button type="button" class="btn">Cancel</button>
+													<button type="button" id="cancle" class="btn">Cancel</button>
 
 												</div>
 
@@ -156,6 +156,17 @@
 											<!-- END FORM-->
 
 										</div>
+										{%else%}
+										<div class="tab-pane active" >
+
+											<!-- BEGIN FORM-->
+
+											<label>You have no permission to create a new project.</label>
+
+											<!-- END FORM-->
+
+										</div>
+										{%endif%}
 
 									</div>
 
@@ -178,3 +189,11 @@
 			<!-- END PAGE CONTAINER-->
 
 		</div>
+<script src="/static/media/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script>
+	$("#cancle").click(function () {
+		$("#project_name")[0].value="";
+		$("#project_description")[0].value=""
+	});
+
+</script>

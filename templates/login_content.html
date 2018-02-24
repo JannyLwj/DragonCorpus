@@ -8,21 +8,9 @@
 
 			<!-- BEGIN PAGE CONTAINER-->
 
-    			<div id="portlet-config" class="modal hide">
+			<div id="portlet-config" class="modal hide">
 
-				<div class="modal-header">
 
-					<button data-dismiss="modal" class="close" type="button"></button>
-
-					<h3>portlet Settings</h3>
-
-				</div>
-
-				<div class="modal-body">
-
-					<p>Here will be a configuration form</p>
-
-				</div>
 
 			</div>
 
@@ -34,13 +22,18 @@
 
 				<!-- BEGIN PAGE HEADER-->
 
-				<div class="row-fluid">
-                    <div class="span3">
-                        </div>
+						<div class="row-fluid">
+
+					<div class="span12">
+
+						<!-- BEGIN STYLE CUSTOMIZER -->
 
 
-                      <div class="span3">
-                        </div>
+						<!-- END BEGIN STYLE CUSTOMIZER -->
+
+
+
+					</div>
 
 				</div>
 
@@ -68,13 +61,12 @@
 								</div>
 
 							</div>
-
 							<div class="portlet-body form">
 
 								<div class="tabbable portlet-tabs">
 
 									<ul class="nav nav-tabs">
-
+										<li class="active"><a href="#portlet_tab1" data-toggle="tab">Default</a></li>
 									</ul>
 
 									<div class="tab-content">
@@ -84,32 +76,32 @@
 											<!-- BEGIN FORM-->
 
 											 <form class="form-horizontal" role="form" action="{% url 'accounts:login' %}" method="POST">
-                {% csrf_token %}
-                {% for item in form %}
-                <div class="form-inputs panel-signin row">
-                    <div class="control-label span1">
-                        {{item.label}}
-                    </div>
-                    <div class="span6">
-                        {{item}}
-                    </div>
-                </div>
-                <div class="form-inputs panel-signin row">
-                    <div class="span1">
-                    </div>
-                    <div class="span6">
-                        {{item.errors}}{{error_msg}}
-                    </div>
-                </div>
-                {% endfor %}
+												{% csrf_token %}
+												{% for item in form %}
+												<div class="form-inputs panel-signin row">
+													<div class="control-label span2">
+														{{item.label}}
+													</div>
+													<div class="span6">
+														{{item}}
+													</div>
+												</div>
+												<div class="form-inputs panel-signin row">
+													<div class="span2">
+													</div>
+													<div class="span6">
+														{{item.errors}}{{error_msg}}
+													</div>
+												</div>
+												{% endfor %}
 
 
 
-                <div class="form-actions">
-                    <input type="hidden" name="next" value="{{ next }}"/>
-                    <button type="submit" class="btn blue"><i class="icon-ok"></i> login</button>
-                </div>
-            </form>
+												<div class="form-actions">
+													<input type="hidden" name="next" value="{{ next }}"/>
+													<button type="submit" class="btn blue"><i class="icon-ok"></i> login</button>
+												</div>
+											</form>
 
 											<!-- END FORM-->
 
@@ -122,6 +114,8 @@
 							</div>
 
 						</div>
+
+
 
 						<!-- END SAMPLE FORM PORTLET-->
 
@@ -140,6 +134,3 @@
 
 </div>
 
-			<!-- END PAGE CONTAINER-->
-
-		</div>

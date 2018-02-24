@@ -25,7 +25,7 @@ SECRET_KEY = 'hf5+$v%jz_gf87mg%s#xq6vk#=idmj9zb*!1#ptc-y7p)k+$wp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*","10.71.2.189"]
+ALLOWED_HOSTS = ["*","10.71.2.246"]
 
 
 # Application definition
@@ -136,3 +136,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+AUTH_USER_MODEL = 'accounts.UserInfo'
+DEFAULT_FROM_EMAIL = '187231153@qq.com'

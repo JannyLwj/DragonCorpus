@@ -52,7 +52,7 @@
 
 								<i class="icon-home"></i>
 
-								<a href="index.html">Home</a>
+								<a href="{% url 'management:index'%}">Home</a>
 
 								<i class="icon-angle-right"></i>
 
@@ -100,8 +100,6 @@
 
 									<a href="javascript:;" class="reload"></a>
 
-									<a href="javascript:;" class="remove"></a>
-
 								</div>
 
 							</div>
@@ -114,11 +112,12 @@
                        			 </table>
 								  <br>
 								  <br>
+								{%if user.email%}
 									<div class="clearfix">
 
 									<div class="btn-group">
 
-										<button  class="btn green">
+										<button  class="btn green" id="delete_item">
 
 										Delete <i class="icon-remove"></i>
 
@@ -126,7 +125,7 @@
 
 									</div>
 
-									<div class="btn-group">
+									<div class="btn-group" id="download_testsuit">
 
 										<button  class="btn green">
 
@@ -138,15 +137,13 @@
 
 												<div class="btn-group">
 
-										<button  class="btn green">
-
-										Delete testsuit<i class="icon-remove"></i>
-
+										<button  id="delete_testsuit" class="btn green">Delete testsuit<i class="icon-remove"></i>
 										</button>
 
 									</div>
 
 								</div>
+								{%endif%}
 
 							</div>
 
@@ -222,32 +219,32 @@
 
     var $table = $('#table_testsuit'),
     $search_button=$('#search_button');
+    $delete_testsuit=$('#delete_testsuit');
 
     function initTable() {
         $table.bootstrapTable({
 			method: 'get',
 			url:"/management/testsuit_overview_detail_table/",
 			queryParams: function (params) {
-				<!--var $domain_selects = $("#domain_selecter")[0]-->
-				<!--var $domain_id_list = ""-->
-				<!--for (var i=0;i< $domain_selects.length;i++){-->
-					<!--if($domain_selects[i].selected){-->
-						<!--$domain_id_list += $domain_selects[i].value + ","-->
-					<!--}-->
-				<!--}-->
+				var $domain_selects = $("#domain_selecter")[0]
+				var $domain_id_list = ""
+				for (var i=0;i< $domain_selects.length;i++){
+					if($domain_selects[i].selected){
+						$domain_id_list += $domain_selects[i].value + ","
+					}
+				}
 
-				<!--var $intent_selects = $("#intent_selecter")[0]-->
-				<!--var $intent_id_list = ""-->
-				<!--for (var i=0;i< $intent_selects.length;i++){-->
-					<!--if($intent_selects[i].selected){-->
-						<!--$intent_id_list += $intent_selects[i].value + ","-->
-					<!--}-->
-				<!--}-->
-
+				var $intent_selects = $("#intent_selecter")[0]
+				var $intent_id_list = ""
+				for (var i=0;i< $intent_selects.length;i++){
+					if($intent_selects[i].selected){
+						$intent_id_list += $intent_selects[i].value + ","
+					}
+				}
 				return {
 				   testsuit_name: testsuit_name_a.innerText,
-				   <!--domain_list: $domain_id_list,-->
-				   <!--intent_list: $intent_id_list-->
+				   domain_list: $domain_id_list,
+				   intent_list: $intent_id_list
 				};
 			},
 			dataType : 'JSON',
@@ -397,13 +394,13 @@
 			}
 		}
 		$.ajax({
-			url: "/management/get_all_intent/",
+			url: "/management/get_testsuit_all_intent/",
 			type: "get",
 			dataType: "json",
 			contentType: "application/json",
 			traditional: true,
 			data: {
-			 project_name: project_name_a.innerText,
+			 testsuit_name: testsuit_name_a.innerText,
 			 domain_id: $domain_id_list
 			},
 			success: function (data) {
@@ -432,5 +429,122 @@
 		  $table.bootstrapTable('refresh');
 	 });
 
+
+	 $delete_testsuit.click(function () {
+		$.ajax({
+		url: "/management/delete_testsuit/",
+		type: "get",
+		dataType: "json",
+		contentType: "application/json",
+		traditional: true,
+		data: {
+		 	testsuit_name: testsuit_name_a.innerText,
+		},
+		success: function (data) {
+			window.location.href="../../../management/index/"
+			alert("delete success！");
+		},
+		error: function (msg) {
+			window.location.href="../../../management/index/"
+			alert("delete success！");
+		}
+		});
+	 });
+
+	$('#delete_item').click(function(){
+		var $testcase_id_selection = $table.bootstrapTable('getAllSelections')
+		if($testcase_id_selection.length<1){
+			return;
+		}
+		var $testcase_id_list = ""
+		for (var i=0;i< $testcase_id_selection.length;i++){
+				$testcase_id_list= $testcase_id_selection[i].id + ","
+		}
+		var $domain_selects = $("#domain_selecter")[0]
+		var $domain_id_list = ""
+		for (var i=0;i< $domain_selects.length;i++){
+			if($domain_selects[i].selected){
+				$domain_id_list += $domain_selects[i].value + ","
+			}
+		}
+		var $intent_selects = $("#intent_selecter")[0]
+		var $intent_id_list = ""
+		for (var i=0;i< $intent_selects.length;i++){
+			if($intent_selects[i].selected){
+				$intent_id_list += $intent_selects[i].value + ","
+			}
+		}
+		$.ajax({
+			url: "/management/delete_testsuit_item/",
+			type: "get",
+			dataType: "json",
+			contentType: "application/json",
+			traditional: true,
+			data: {
+			 testsuit_name: testsuit_name_a.innerText,
+			 testcase_id: $testcase_id_list,
+			 domain_list: $domain_id_list,
+		   	 intent_list: $intent_id_list
+			},
+			success: function (data) {
+				$table.bootstrapTable('load',data);
+			},
+			error: function (msg) {
+				alert("出错了！");
+			}
+		});
+	});
+
+	$('#download_testsuit').click(function(){
+		var $testcase_id_selection = $table.bootstrapTable('getOptions')
+		if($testcase_id_selection.length<1){
+			return;
+		}
+		var $testcase_id_list = ""
+		for (var i=0;i< $testcase_id_selection.length;i++){
+				$testcase_id_list= $testcase_id_selection[i].id + ","
+		}
+		var $domain_selects = $("#domain_selecter")[0]
+		var $domain_id_list = ""
+		for (var i=0;i< $domain_selects.length;i++){
+			if($domain_selects[i].selected){
+				$domain_id_list += $domain_selects[i].value + ","
+			}
+		}
+
+		var $intent_selects = $("#intent_selecter")[0]
+		var $intent_id_list = ""
+		for (var i=0;i< $intent_selects.length;i++){
+			if($intent_selects[i].selected){
+				$intent_id_list += $intent_selects[i].value + ","
+			}
+		}
+		$.ajax({
+			url: "/management/download_testsuit/",
+			type: "get",
+			dataType: "json",
+			contentType: "application/json",
+			traditional: true,
+			data: {
+			 testsuit_name: testsuit_name_a.innerText,
+			 testcase_id: $testcase_id_list,
+			 domain_list: $domain_id_list,
+		   	 intent_list: $intent_id_list
+			},
+			success: function (data) {
+				var eleLink = document.createElement('a');
+				eleLink.setAttribute("href","{% url 'management:zip_download' %}");
+				document.body.appendChild(eleLink);
+				eleLink.click();
+				document.body.removeChild(eleLink)
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				alert(XMLHttpRequest.status);
+			   	alert(XMLHttpRequest.readyState);
+			   	alert(textStatus);
+
+			},
+		});
+	});
 
 </script>

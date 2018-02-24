@@ -1561,11 +1561,11 @@ Box portlet
 }
 
 .portlet.box.grey .portlet-title {
-  background-color: #555555;
+  background-color: #4b8df8;
 } 
 
 .portlet.box.grey {  
-   border: 1px solid #9d9c9c;
+   border: 1px solid #b4cef8;
    border-top: 0;
 }
 

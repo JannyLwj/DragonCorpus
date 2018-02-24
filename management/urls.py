@@ -30,5 +30,7 @@ urlpatterns = [
     #download_testsuit
     url(r'^download_testsuit/$', views.download_testsuit, name='download_testsuit'),
     url(r'^zip_download/$', views.zip_download, name='zip_download'),
+    #upload audio
+    url(r'^upload_utterance_table/$', views.upload_utterance_table, name='upload_utterance_table'),
 
 ]
